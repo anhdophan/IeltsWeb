@@ -1,0 +1,149 @@
+/* Đặt giới hạn chiều rộng cho toàn trang và căn giữa nội dung */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Đảm bảo chiều dài trang luôn bằng hoặc lớn hơn chiều cao màn hình */
+}
+
+/* Logo với hiệu ứng hover */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+  display: block;
+  margin: 0 auto; /* Căn giữa logo */
+}
+
+/* Hiệu ứng hover khi người dùng di chuột lên logo */
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+/* Hiệu ứng hover dành riêng cho logo của React */
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* Hiệu ứng quay cho logo khi không giảm chuyển động */
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* Tạo chuyển động xoay cho logo */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Thiết kế card */
+.card {
+  padding: 2em;
+  margin: 1em auto;
+  max-width: 100%; /* Đảm bảo card không vượt quá giới hạn */
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Kiểm soát văn bản trong khu vực đọc tài liệu */
+.read-the-docs {
+  color: #888;
+  font-size: 1.1rem;
+  margin-top: 1em;
+  text-align: center;
+  display: block;
+}
+
+/* Đảm bảo rằng các phần tử card và nội dung có khoảng cách đều nhau */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 20px 0;
+}
+
+/* Đảm bảo trang có thiết kế responsive */
+@media (max-width: 768px) {
+  .card {
+    padding: 1.5em;
+    width: 90%;
+  }
+
+  .logo {
+    height: 5em; /* Giảm kích thước logo trên màn hình nhỏ hơn */
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1em;
+    width: 100%; /* Card chiếm toàn bộ chiều rộng trên màn hình nhỏ */
+  }
+
+  .logo {
+    height: 4em; /* Giảm kích thước logo hơn nữa trên màn hình rất nhỏ */
+  }
+}
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
