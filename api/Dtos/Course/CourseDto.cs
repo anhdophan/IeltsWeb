@@ -11,6 +11,7 @@ namespace api.Dtos.Course
     {
         public int Id { get; set; }
         public string courseName { get; set; } = string.Empty;
+        public string courseIMG { get; set; } = string.Empty;
         public decimal price { get; set; }
         public string courseDescription { get; set; } = string.Empty;
         public List<CommentDto> Comments {get;set;}

@@ -5,24 +5,24 @@
 namespace api.Migrations
 {
     /// <inheritdoc />
-    public partial class Update : Migration
+    public partial class Update2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<decimal>(
-                name: "price3",
+            migrationBuilder.AddColumn<string>(
+                name: "courseIMG",
                 table: "Courses",
-                type: "decimal(18,2)",
+                type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: 0m);
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "price3",
+                name: "courseIMG",
                 table: "Courses");
         }
     }

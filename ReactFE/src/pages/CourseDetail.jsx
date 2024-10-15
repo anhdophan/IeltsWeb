@@ -50,7 +50,7 @@ export default function CourseDetail() {
       <Paper elevation={3} sx={{ padding: 3, borderRadius: 2, width: '100%', maxWidth: 800 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={4} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Avatar sx={{ width: 120, height: 120, bgcolor: 'primary.main' }}>
+            <Avatar  src={course.courseIMG} sx={ { width: 120, height: 120, bgcolor: 'primary.main' }}>
               <ImageIcon sx={{ fontSize: 60 }} />
             </Avatar>
           </Grid>

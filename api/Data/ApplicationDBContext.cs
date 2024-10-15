@@ -1,4 +1,5 @@
-﻿using IeltsWebLearn.Models;
+﻿using api.Models;
+using IeltsWebLearn.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace IeltsWebLearn.Data
@@ -15,6 +16,8 @@ namespace IeltsWebLearn.Data
         //Tạo bảng cho db
         public DbSet<Course> Courses {  get; set; } 
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<SignUpInfor> SignUpInfors {get;set;}
+        public DbSet<Student> Student {get;set;}
 
     }
 }

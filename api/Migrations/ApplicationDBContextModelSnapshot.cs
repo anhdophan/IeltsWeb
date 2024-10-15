@@ -37,6 +37,9 @@ namespace api.Migrations
                     b.Property<int?>("CourseId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -47,6 +50,8 @@ namespace api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Comments");
                 });
@@ -63,6 +68,10 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("courseIMG")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("courseName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -75,16 +84,115 @@ namespace api.Migrations
                     b.ToTable("Courses");
                 });
 
+            modelBuilder.Entity("api.Models.SignUpInfor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("creatOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("emailSt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nameSt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("phoneSt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("SignUpInfors");
+                });
+
+            modelBuilder.Entity("api.Models.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("creatOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("emailSt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nameSt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("passSt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("phoneSt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Student");
+                });
+
             modelBuilder.Entity("IeltsWebLearn.Models.Comment", b =>
                 {
                     b.HasOne("IeltsWebLearn.Models.Course", "Course")
                         .WithMany("Comments")
                         .HasForeignKey("CourseId");
 
+                    b.HasOne("api.Models.Student", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("api.Models.SignUpInfor", b =>
+                {
+                    b.HasOne("IeltsWebLearn.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("api.Models.Student", b =>
+                {
+                    b.HasOne("IeltsWebLearn.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId");
+
                     b.Navigation("Course");
                 });
 
             modelBuilder.Entity("IeltsWebLearn.Models.Course", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("api.Models.Student", b =>
                 {
                     b.Navigation("Comments");
                 });

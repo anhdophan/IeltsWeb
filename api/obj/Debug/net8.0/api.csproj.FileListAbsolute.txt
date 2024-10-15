@@ -139,3 +139,4 @@ E:\ieltsWeb\api\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 E:\ieltsWeb\api\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 E:\ieltsWeb\api\bin\Debug\net8.0\Newtonsoft.Json.dll
 E:\ieltsWeb\api\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+E:\ieltsWeb\api\obj\Debug\net8.0\api.sourcelink.json

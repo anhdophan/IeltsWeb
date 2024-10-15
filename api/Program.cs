@@ -24,16 +24,12 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5174") // Địa chỉ frontend
+            policy.WithOrigins("http://localhost:5173", "http://localhost:5174") // Địa chỉ frontend
                   .AllowAnyHeader() // Cho phép bất kỳ header nào
-                  .AllowAnyMethod(); // Cho phép mọi phương thức HTTP (GET, POST, PUT, DELETE,...)
+                  .AllowAnyMethod() // Cho phép mọi phương thức HTTP (GET, POST, PUT, DELETE,...)
+                  .AllowCredentials(); // Cho phép gửi credentials nếu cần
         });
 });
-
-var app = builder.Build();
-
-// Use CORS
-app.UseCors("AllowSpecificOrigin");
 
 // Connect to the database
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
@@ -44,7 +40,10 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 // Register Repositories
 builder.Services.AddScoped<ICourseReponsitory, CourseReponsitory>();
 builder.Services.AddScoped<ICommentReponsitory, CommentReponsitory>();
+builder.Services.AddScoped<ISignUpInforReponsitory, SignUpInforReponsitory>();
 
+// Build the app after configuring services
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
