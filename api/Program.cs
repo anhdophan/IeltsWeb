@@ -3,7 +3,6 @@ using api.Repository;
 using api.Respository;
 using IeltsWebLearn.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.SpaServices;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,10 +59,6 @@ if (app.Environment.IsDevelopment() || !app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseSpaStaticFiles();
 
-app.UseSpa(spa =>
-{
-    spa.Options.SourcePath = "wwwroot/react-app/dist"; // Đường dẫn tới thư mục React
-});
 
 app.UseHttpsRedirection();
 
