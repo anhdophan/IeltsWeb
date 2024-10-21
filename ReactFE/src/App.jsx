@@ -19,6 +19,8 @@ import TeacherSection from './components/Main Page/TeacherSection';
 import RegistrationForm from './components/Main Page/RegistrationForm';
 import Footer from './components/Main Page/Footer';
 import CourseList from './components/CourseList';
+import CustomerChatPopup from './components/CustomerChatPopup';
+
 
 
 
@@ -78,6 +80,7 @@ function App() {
       </main>
       <RegistrationForm/>
       <Footer/>
+      <CustomerChatPopup/>
     </div>
   );
 }

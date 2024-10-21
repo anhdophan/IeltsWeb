@@ -1,0 +1,20 @@
+.admin-message {
+    background-color: #f1f1f1;
+    text-align: left;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.customer-message {
+    background-color: #d1e7dd;
+    text-align: right;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.chat-messages {
+    max-height: 400px;
+    overflow-y: scroll;
+}

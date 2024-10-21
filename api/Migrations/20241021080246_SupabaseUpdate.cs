@@ -6,16 +6,41 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace api.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateDB : Migration
+    public partial class SupabaseUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "StudentId",
-                table: "Comments",
-                type: "int",
-                nullable: true);
+            migrationBuilder.CreateTable(
+                name: "ChatMessages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatMessages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    courseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    courseIMG = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    price = table.Column<decimal>(type: "decimal(18,1)", nullable: false),
+                    courseDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "SignUpInfors",
@@ -63,6 +88,38 @@ namespace api.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    creatOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: true),
+                    StudentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Comments_Student_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Student",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_CourseId",
+                table: "Comments",
+                column: "CourseId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_StudentId",
                 table: "Comments",
@@ -77,21 +134,16 @@ namespace api.Migrations
                 name: "IX_Student_CourseId",
                 table: "Student",
                 column: "CourseId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Comments_Student_StudentId",
-                table: "Comments",
-                column: "StudentId",
-                principalTable: "Student",
-                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Comments_Student_StudentId",
-                table: "Comments");
+            migrationBuilder.DropTable(
+                name: "ChatMessages");
+
+            migrationBuilder.DropTable(
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "SignUpInfors");
@@ -99,13 +151,8 @@ namespace api.Migrations
             migrationBuilder.DropTable(
                 name: "Student");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Comments_StudentId",
-                table: "Comments");
-
-            migrationBuilder.DropColumn(
-                name: "StudentId",
-                table: "Comments");
+            migrationBuilder.DropTable(
+                name: "Courses");
         }
     }
 }

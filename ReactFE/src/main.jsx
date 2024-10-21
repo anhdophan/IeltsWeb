@@ -10,6 +10,8 @@ import App from "./App"; // Nhập component App
 import CourseDetail from "./pages/CourseDetail"; // Nhập component CourseDetail
 import CourseCreate from "./pages/CourseCreate";
 import CourseRegistrationPopup from "./components/CourseRegistrationPopup";
+import AdminChat from "./pages/AdminChat";
+
 
 // Tạo router với các route cần thiết
 const router = createBrowserRouter([
@@ -33,6 +35,11 @@ const router = createBrowserRouter([
     path: "/SignUp/:id", // Trang tạo khóa học
     element: <CourseRegistrationPopup />, // Hiển thị trang CourseCreate
   },
+  {
+    path: "/AdminChat", 
+    element: <AdminChat/>, 
+  },
+
   
 ]);
 

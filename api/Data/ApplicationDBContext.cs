@@ -9,15 +9,16 @@ namespace IeltsWebLearn.Data
     public class ApplicationDBContext : DbContext
     {
         //Tạo db và các bảng bằng EntityFrameWork
-        public ApplicationDBContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
+        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> dbContextOptions) : base(dbContextOptions)
         {
             
-        }
+        }                           
         //Tạo bảng cho db
         public DbSet<Course> Courses {  get; set; } 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<SignUpInfor> SignUpInfors {get;set;}
         public DbSet<Student> Student {get;set;}
+        public DbSet<ChatMessage> ChatMessages {get;set;}
 
     }
 }
