@@ -37,7 +37,6 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-
 // Đăng ký SignalR service
 builder.Services.AddSignalR();  // Thêm dòng này để đăng ký SignalR
 
@@ -45,6 +44,12 @@ builder.Services.AddSignalR();  // Thêm dòng này để đăng ký SignalR
 builder.Services.AddScoped<ICourseReponsitory, CourseReponsitory>();
 builder.Services.AddScoped<ICommentReponsitory, CommentReponsitory>();
 builder.Services.AddScoped<ISignUpInforReponsitory, SignUpInforReponsitory>();
+
+// Register SpaStaticFiles to serve SPA static files
+builder.Services.AddSpaStaticFiles(configuration =>
+{
+    configuration.RootPath = "ReactFE/dist"; // Đường dẫn tới build output của ứng dụng React/Angular
+});
 
 // Build the app after configuring services
 var app = builder.Build();
@@ -57,8 +62,7 @@ if (app.Environment.IsDevelopment() || !app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
-app.UseSpaStaticFiles();
-
+app.UseSpaStaticFiles();  // Đảm bảo static files được phục vụ
 
 app.UseHttpsRedirection();
 
@@ -70,5 +74,15 @@ app.UseAuthorization();
 app.MapHub<ChatHub>("/chatHub");
 
 app.MapControllers();
+
+// Configure SPA (For React or Angular apps)
+app.UseSpa(spa =>
+{
+    spa.Options.SourcePath = "ReactFE"; // Đường dẫn đến thư mục ứng dụng SPA
+    if (app.Environment.IsDevelopment())
+    {
+        spa.UseProxyToSpaDevelopmentServer("http://localhost:3000"); // Nếu đang phát triển React, Angular thì dùng proxy
+    }
+});
 
 app.Run();
