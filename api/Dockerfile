@@ -1,31 +1,26 @@
-# Sử dụng .NET SDK image
+# Use the official ASP.NET Core runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-# Sử dụng .NET SDK để build ứng dụng
+# Use the SDK image to build the app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /api
+WORKDIR /src
 
-# Copy tệp .csproj vào container
-COPY ["api/api.csproj", "./api/"]
-RUN dotnet restore "./api/api.csproj"
+# Copy the .csproj file and restore dependencies
+COPY ["api.csproj", "./"]
+RUN dotnet restore "./api.csproj"
 
-# Copy toàn bộ source code vào container
+# Copy the rest of the source code and build the project
 COPY . .
+RUN dotnet build "api.csproj" -c Release -o /app/build
 
-# Chuyển vào đúng thư mục chứa tệp .csproj trước khi build
-WORKDIR "/api"
-RUN dotnet build "api.csproj" -c Release -o /api
-
-# Publish ứng dụng
+# Publish the app to a folder
 FROM build AS publish
-WORKDIR "/api"
-RUN dotnet publish "api.csproj" -c Release -o /api
+RUN dotnet publish "api.csproj" -c Release -o /app/publish
 
-# Tạo runtime environment để chạy ứng dụng
+# Create the runtime image
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
