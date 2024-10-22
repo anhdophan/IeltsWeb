@@ -10,7 +10,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copy toàn bộ source code vào container
-COPY ["api.csproj", "./"]
+COPY ["api/api.csproj", "./api/"]
 RUN dotnet restore "./api/api.csproj"
 
 COPY . .
