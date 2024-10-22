@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173", "http://localhost:5174") // Địa chỉ frontend
+            policy.WithOrigins("http://localhost:5173", "http://localhost:5174","https://ielts-ntcy29pfr-anhdophans-projects.vercel.app") // Địa chỉ frontend
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials(); // Cho phép gửi credentials nếu cần

@@ -9,7 +9,7 @@ const Footer = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get('http://localhost:5009/api/Course');
+      const response = await axios.get('https://ieltsweb.onrender.com/api/Course');
       setCourses(response.data);
     } catch (error) {
       setError('Lỗi khi tải dữ liệu!');
