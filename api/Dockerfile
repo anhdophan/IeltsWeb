@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy the .csproj file and restore dependencies
-COPY ["api.csproj", "./"]
+COPY ["./api/api.csproj", "./api"]
 RUN dotnet restore "./api.csproj"
 
 # Copy the rest of the source code and build the project
