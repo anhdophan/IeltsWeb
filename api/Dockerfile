@@ -14,7 +14,7 @@ COPY ["api/api.csproj", "./api/"]
 RUN dotnet restore "./api/api.csproj"
 
 COPY . .
-WORKDIR "/src"
+WORKDIR "/api"
 RUN dotnet build "api.csproj" -c Release -o /app/build
 
 # Publish ứng dụng
