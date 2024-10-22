@@ -23,7 +23,7 @@ export default function CourseCreate() {
     };
   
     try {
-      const response = await fetch('http://localhost:5009/api/Course', {
+      const response = await fetch('https://ieltsweb.onrender.com/api/Course', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

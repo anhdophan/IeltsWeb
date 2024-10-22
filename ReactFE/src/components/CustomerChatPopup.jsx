@@ -21,7 +21,7 @@ const CustomerChatPopup = () => {
     useEffect(() => {
         if (isOpen && customerId) {
             const connect = new HubConnectionBuilder()
-                .withUrl("http://localhost:5009/chatHub")
+                .withUrl("https://ieltsweb.onrender.com/chatHub")
                 .withAutomaticReconnect()
                 .build();
 

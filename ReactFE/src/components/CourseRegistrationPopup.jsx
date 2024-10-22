@@ -44,7 +44,7 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
     
             // Send the request to the API
             try {
-                const response = await fetch(`http://localhost:5009/api/SignUpInfor/${course.id}`, { // Updated to use course.id
+                const response = await fetch(`https://ieltsweb.onrender.com/api/SignUpInfor/${course.id}`, { // Updated to use course.id
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

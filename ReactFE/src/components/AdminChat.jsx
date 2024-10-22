@@ -51,7 +51,7 @@ const AdminChat = () => {
     useEffect(() => {
         // Thiết lập kết nối với SignalR
         const newConnection = new signalR.HubConnectionBuilder()
-            .withUrl("http://localhost:5009/chatHub")
+            .withUrl("https://ieltsweb.onrender.com/chatHub")
             .withAutomaticReconnect()
             .build();
 

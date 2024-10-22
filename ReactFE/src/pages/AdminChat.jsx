@@ -10,7 +10,7 @@ const AdminChat = () => {
 
     useEffect(() => {
         const connect = new HubConnectionBuilder()
-            .withUrl("http://localhost:5009/chatHub") // URL Hub của bạn
+            .withUrl("https://ieltsweb.onrender.com/chatHub") // URL Hub của bạn
             .withAutomaticReconnect()
             .build();
     

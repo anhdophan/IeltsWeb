@@ -15,7 +15,7 @@ export default function CourseDetail() {
   // Hàm lấy thông tin khóa học từ API
   const fetchCourseDetail = async () => {
     try {
-      const response = await axios.get(`http://localhost:5009/api/Course/${id}`);
+      const response = await axios.get(`https://ieltsweb.onrender.com/api/Course/${id}`);
       setCourse(response.data);
     } catch (error) {
       console.error('Error fetching course details:', error);
