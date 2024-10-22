@@ -45,6 +45,8 @@ builder.Services.AddScoped<ICommentReponsitory, CommentReponsitory>();
 builder.Services.AddScoped<ISignUpInforReponsitory, SignUpInforReponsitory>();
 
 
+
+
 // Build the app after configuring services
 var app = builder.Build();
 
