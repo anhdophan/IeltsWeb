@@ -18,12 +18,12 @@ COPY . .
 
 # Chuyển vào đúng thư mục chứa tệp .csproj trước khi build
 WORKDIR "/api"
-RUN dotnet build "api.csproj" -c Release -o /app/build
+RUN dotnet build "api.csproj" -c Release -o /api
 
 # Publish ứng dụng
 FROM build AS publish
 WORKDIR "/api"
-RUN dotnet publish "api.csproj" -c Release -o /app/publish
+RUN dotnet publish "api.csproj" -c Release -o /api
 
 # Tạo runtime environment để chạy ứng dụng
 FROM base AS final
