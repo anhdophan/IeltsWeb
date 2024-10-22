@@ -6,11 +6,12 @@ EXPOSE 8081
 
 # Sử dụng .NET SDK để build ứng dụng
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copy toàn bộ source code vào container
 COPY ["api.csproj", "./"]
-RUN dotnet restore "./api.csproj"
+RUN dotnet restore "./api/api.csproj"
 
 COPY . .
 WORKDIR "/src"
