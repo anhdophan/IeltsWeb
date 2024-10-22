@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { HubConnectionBuilder } from '@microsoft/signalr';
-import Modal from 'react-modal';
 import "../styles/Other/CustomerChatPopupStyle.css"
-
-// Set modal root element
-Modal.setAppElement('#root');
 
 const CustomerChatPopup = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,38 +8,33 @@ const CustomerChatPopup = () => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const [customerId, setCustomerId] = useState(() => {
-        // Lấy customerId từ localStorage nếu đã tồn tại
         const savedCustomerId = localStorage.getItem('customerId');
-        return savedCustomerId || ''; // Nếu không có, trả về chuỗi rỗng
+        return savedCustomerId || '';
     });
 
-    // Khởi tạo customerId nếu chưa có và lưu vào localStorage
     const generateUniqueCustomerId = () => {
-        const newCustomerId = `cus${Date.now()}`; // Tạo ID duy nhất dựa trên timestamp
-        localStorage.setItem('customerId', newCustomerId); // Lưu vào localStorage
+        const newCustomerId = `cus${Date.now()}`;
+        localStorage.setItem('customerId', newCustomerId);
         setCustomerId(newCustomerId);
     };
 
     useEffect(() => {
-        // Nếu có customerId, tạo kết nối khi người dùng mở chat
         if (isOpen && customerId) {
             const connect = new HubConnectionBuilder()
-                .withUrl("http://localhost:5009/chatHub") // URL Hub của bạn
+                .withUrl("http://localhost:5009/chatHub")
                 .withAutomaticReconnect()
                 .build();
-            
+
             setConnection(connect);
-        
+
             connect.start()
                 .then(() => {
                     console.log("Connected to chat");
-                    connect.invoke("SendCustomerIdToAdmin", customerId); // Gửi ID khách hàng khi kết nối thành công
+                    connect.invoke("SendCustomerIdToAdmin", customerId);
                 })
                 .catch(err => console.log("Connection failed: ", err));
 
-            // Nhận tin nhắn từ phía server
             connect.on("ReceiveMessage", (fromUser, receivedMessage) => {
-                // Chỉ hiển thị tin nhắn từ Admin hoặc của chính customerId hiện tại
                 if (fromUser === 'Admin' || fromUser === customerId) {
                     setMessages(prevMessages => [...prevMessages, { user: fromUser, message: receivedMessage }]);
                 }
@@ -53,15 +44,14 @@ const CustomerChatPopup = () => {
                 connect.stop();
             };
         } else if (isOpen && !customerId) {
-            // Nếu chưa có customerId, tạo mới và lưu lại
             generateUniqueCustomerId();
         }
-    }, [isOpen, customerId]); // Kết nối chỉ khi isOpen và customerId thay đổi
+    }, [isOpen, customerId]);
 
     const sendMessage = async () => {
         if (message && connection) {
             try {
-                await connection.invoke("SendMessageFromCustomer", customerId, message); // Gửi tin nhắn tới admin
+                await connection.invoke("SendMessageFromCustomer", customerId, message);
                 setMessages(prevMessages => [...prevMessages, { user: "Customer", message }]);
                 setMessage('');
             } catch (err) {
@@ -71,37 +61,39 @@ const CustomerChatPopup = () => {
     };
 
     const toggleModal = () => {
-        setIsOpen(!isOpen); // Chỉ mở kết nối khi khách hàng mở chat
+        setIsOpen(!isOpen);
     };
 
     return (
-        <>
-            <button onClick={toggleModal}>Open Chat</button>
-            <Modal
-                isOpen={isOpen}
-                onRequestClose={toggleModal}
-                contentLabel="Chat Popup"
-                className="chat-modal"
-                overlayClassName="chat-overlay"
-            >
-                <h2>Customer Chat</h2>
-                <div className="chat-messages">
-                    {messages.map((msg, index) => (
-                        <div key={index} className={msg.user === 'Admin' ? 'admin-message' : 'customer-message'}>
-                            <strong>{msg.user === 'Admin' ? 'Admin' : 'You'}: </strong>{msg.message}
-                        </div>
-                    ))}
+        <div className="chat-container">
+            {/* Nút Open Chat */}
+            <button className="open-chat-btn" onClick={toggleModal}>
+                💬
+            </button>
+
+            {/* Khung chat chỉ hiển thị khi isOpen true */}
+            {isOpen && (
+                <div className="chat-modal">
+                    <h2>Customer Chat</h2>
+                    <div className="chat-messages">
+                        {messages.map((msg, index) => (
+                            <div key={index} className={msg.user === 'Admin' ? 'admin-message' : 'customer-message'}>
+                                <strong>{msg.user === 'Admin' ? 'Admin' : 'You'}: </strong>{msg.message}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="chat-input-container">
+                        <input
+                            type="text"
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            placeholder="Type your message..."
+                        />
+                        <button onClick={sendMessage} disabled={!message}>Send</button>
+                    </div>
                 </div>
-                <input
-                    type="text"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Type your message..."
-                />
-                <button onClick={sendMessage} disabled={!message}>Send</button>
-                <button onClick={toggleModal}>Close</button>
-            </Modal>
-        </>
+            )}
+        </div>
     );
 };
 

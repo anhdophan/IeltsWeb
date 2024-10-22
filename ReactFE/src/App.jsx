@@ -79,8 +79,8 @@ function App() {
           <CourseList data={courses} />
       </main>
       <RegistrationForm/>
-      <Footer/>
       <CustomerChatPopup/>
+      <Footer/>
     </div>
   );
 }
