@@ -2,7 +2,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 COPY ["./api/api.csproj", "./api"]
-RUN dotnet restore "./api/api.csproj"
+RUN dotnet restore "api/api.csproj"
 COPY . .
 RUN dotnet publish -c Release -o /app
 
