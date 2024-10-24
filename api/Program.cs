@@ -23,10 +23,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173", "http://localhost:5174","https://ielts-ntcy29pfr-anhdophans-projects.vercel.app") // Địa chỉ frontend
+            policy.WithOrigins("https://your-frontend-domain.com") // Vercel app domain
                   .AllowAnyHeader()
                   .AllowAnyMethod()
-                  .AllowCredentials(); // Cho phép gửi credentials nếu cần
+                  .AllowCredentials();
         });
 });
 
@@ -58,11 +58,9 @@ if (app.Environment.IsDevelopment() || !app.Environment.IsDevelopment())
 }
 
 
+// Ensure CORS is applied before Authorization
 app.UseHttpsRedirection();
-
-// Use CORS (Ensure this is placed before app.UseAuthorization)
-app.UseCors("AllowSpecificOrigin");
-
+app.UseCors("AllowSpecificOrigin"); 
 app.UseAuthorization();
 
 app.MapHub<ChatHub>("/chatHub");
