@@ -34,23 +34,15 @@ function App() {
       const response = await axios.get('https://ieltsweb.onrender.com/api/Course');
       setCourses(response.data);
     } catch (error) {
-      if (error.response) {
-        // Server responded with a status other than 2xx
-        console.error('Server error:', error.response);
-        setError(`Server error: ${error.response.status} ${error.response.statusText}`);
-      } else if (error.request) {
-        // No response from the server
-        console.error('No response received:', error.request);
-        setError('No response received from the server. Possible CORS issue.');
-      } else {
-        // Other errors
-        console.error('Error:', error.message);
-        setError('Lỗi khi tải dữ liệu!');
-      }
+      setError('Lỗi khi tải dữ liệu!');
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
 
   if (loading) {
     return (
