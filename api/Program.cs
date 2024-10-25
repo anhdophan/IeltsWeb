@@ -1,3 +1,4 @@
+using api.Email;
 using api.Interfaces;
 using api.Repository;
 using api.Respository;
@@ -43,7 +44,7 @@ builder.Services.AddSignalR();  // Thêm dòng này để đăng ký SignalR
 builder.Services.AddScoped<ICourseReponsitory, CourseReponsitory>();
 builder.Services.AddScoped<ICommentReponsitory, CommentReponsitory>();
 builder.Services.AddScoped<ISignUpInforReponsitory, SignUpInforReponsitory>();
-
+builder.Services.AddScoped<EmailService>();
 
 
 

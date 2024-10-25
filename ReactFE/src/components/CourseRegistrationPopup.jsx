@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Typography, Box } from '@mui/material';
 import '../styles/Other/CourseRegistrationPopupStyle.css'; // Import the CSS file
+import axios from 'axios'; // Make sure axios is imported
 
 export default function CourseRegistrationPopup({ open, onClose, course }) {
     const navigate = useNavigate();
@@ -15,6 +16,8 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // Phone number validation (only digits and exactly 10 digits)
     const phoneRegex = /^[0-9]{10}$/;
+
+    
 
     const handleCreateSignUp = async () => {
         let isValid = true;
@@ -71,6 +74,27 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
         }
     };
     
+    // Hàm gửi email
+    const sendEmail = async (customerEmail) => {
+        const subject = "Chào mừng bạn đến với Jumbo Book Store"; // Customize email subject here
+        const message = "Chúng tôi rất vui được phục vụ bạn. Cảm ơn vì đã đăng ký!"; // Customize email content here
+    
+        try {
+            const response = await axios.post('https://ieltsweb.onrender.com/api/Email/send-email', {
+                customerEmail,
+                subject,
+                message,
+            });
+            
+            if (response.status === 200) {
+                console.log('Email sent successfully:', response.data.message);
+            } else {
+                console.error('Failed to send email');
+            }
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    };
 
     return (
         <Dialog 
@@ -145,7 +169,10 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
                     Hủy
                 </Button>
                 <Button 
-                    onClick={handleCreateSignUp} 
+                    onClick={() => {
+                        handleCreateSignUp();  // Call this function first
+                        sendEmail(email);      // Then call sendEmail with the customer's email
+                    }} 
                     className="register-button" // Apply register-button class
                 >
                     Đăng ký

@@ -141,3 +141,6 @@ E:\ieltsWeb\api\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 E:\ieltsWeb\api\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
 E:\ieltsWeb\api\bin\Debug\net8.0\appsettings.json
 E:\ieltsWeb\api\bin\Debug\net8.0\Microsoft.AspNetCore.SpaServices.Extensions.dll
+E:\ieltsWeb\api\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+E:\ieltsWeb\api\bin\Debug\net8.0\MailKit.dll
+E:\ieltsWeb\api\bin\Debug\net8.0\MimeKit.dll
