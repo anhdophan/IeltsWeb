@@ -31,8 +31,13 @@ function App() {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get('https://ieltsweb.onrender.com/api/Course');
-      setCourses(response.data);
+      const response = await fetch(`https://ieltsweb.onrender.com/api/Course`, { 
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signUpData),
+    });
     } catch (error) {
       setError('Lỗi khi tải dữ liệu!');
     } finally {
