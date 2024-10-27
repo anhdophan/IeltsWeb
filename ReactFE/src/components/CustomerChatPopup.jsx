@@ -48,17 +48,32 @@ const CustomerChatPopup = () => {
         }
     }, [isOpen, customerId]);
 
-    const sendMessage = async () => {
-        if (message && connection) {
-            try {
-                await connection.invoke("SendMessageFromCustomer", customerId, message);
-                setMessages(prevMessages => [...prevMessages, { user: "Customer", message }]);
-                setMessage('');
-            } catch (err) {
-                console.error("Error sending message: ", err);
+    const sendEmail = async (customerEmail) => {
+        const subject = "Chào mừng bạn đến với Jumbo Book Store";
+        const message = "Chúng tôi rất vui được phục vụ bạn. Cảm ơn vì đã đăng ký!";
+    
+        try {
+            const emailResponse = await axios.post('https://ieltsweb.onrender.com/api/SendEmail', {
+                customerEmail,
+                subject,
+                message,
+            });
+    
+            if (emailResponse.status === 200) {
+                console.log('Email sent successfully');
+                await axios.post('https://ieltsweb.onrender.com/api/EmailLogs', {
+                    customerEmail,
+                    subject,
+                    message,
+                    sentTime: new Date().toISOString(), // Send timestamp for logging
+                });
+                console.log('Email log saved successfully');
             }
+        } catch (error) {
+            console.error('Error sending email or saving log:', error);
         }
     };
+    
 
     const toggleModal = () => {
         setIsOpen(!isOpen);

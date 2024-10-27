@@ -18,7 +18,7 @@ namespace IeltsWebLearn.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<SignUpInfor> SignUpInfors {get;set;}
         public DbSet<Student> Student {get;set;}
-
+        public DbSet<EmailLog> EmailLogs {get;set;}
 
     }
 }
