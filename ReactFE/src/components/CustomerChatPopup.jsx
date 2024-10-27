@@ -61,7 +61,7 @@ const CustomerChatPopup = () => {
     
             if (emailResponse.status === 200) {
                 console.log('Email sent successfully');
-                await axios.post('https://ieltsweb.onrender.com/api/EmailLogs', {
+                await axios.post('https://ieltsweb.onrender.com/api/Email', {
                     customerEmail,
                     subject,
                     message,
