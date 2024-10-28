@@ -17,6 +17,10 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
     // Phone number validation (only digits and exactly 10 digits)
     const phoneRegex = /^[0-9]{10}$/;
 
+    const subject = "Chào mừng bạn đến với Jumbo Book Store"; // Customize email subject here
+    const message = "Chúng tôi rất vui được phục vụ bạn. Cảm ơn vì đã đăng ký!"; // Customize email content here
+    
+
     
 
     const handleCreateSignUp = async () => {
@@ -76,9 +80,7 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
     
     // Hàm gửi email
     const sendEmail = async (customerEmail) => {
-        const subject = "Chào mừng bạn đến với Jumbo Book Store"; // Customize email subject here
-        const message = "Chúng tôi rất vui được phục vụ bạn. Cảm ơn vì đã đăng ký!"; // Customize email content here
-    
+        
         try {
             const response = await axios.post('https://ieltsweb.onrender.com/api/Email/send-email', {
                 customerEmail,
@@ -96,6 +98,35 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
             console.error('Error sending email:', error);
         }
     };
+    const saveEmail = async (customerEmail) => {
+        try {
+            const response = await fetch('https://ieltsweb.onrender.com/api/Email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    customerEmail, 
+                    subject, 
+                    message
+                }),
+            });
+    
+            if (response.ok) {
+                const createdEmailMess = await response.json();
+                console.log('Email đã được tạo', createdEmailMess);
+            } else {
+                const errorData = await response.json();
+                console.error('Lỗi khi lưu nội dung Email:', errorData);
+                alert('Có lỗi xảy ra khi lưu nội dung Email.');
+            }
+        } catch (error) {
+            console.error('Lỗi kết nối:', error);
+            alert('Lỗi kết nối đến máy chủ.');
+        }
+    };
+    
+
     return (
         <Dialog 
             open={open} 
@@ -172,7 +203,7 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
                     onClick={() => {
                         handleCreateSignUp();  // Call this function first
                         sendEmail(email);   // Then call sendEmail with the customer's email
-                       
+                        saveEmail(email);   
                     }} 
                     className="register-button" // Apply register-button class
                 >

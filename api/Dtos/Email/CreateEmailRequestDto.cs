@@ -10,6 +10,6 @@ namespace api.Dtos.Email
         public string CustomerEmail { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
-        public DateTime SentTime { get; set; }
+        public DateTime SentTime { get; set; } = DateTime.Now;
     }
 }
