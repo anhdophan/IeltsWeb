@@ -44,6 +44,7 @@ builder.Services.AddSignalR();  // Thêm dòng này để đăng ký SignalR
 builder.Services.AddScoped<ICourseReponsitory, CourseReponsitory>();
 builder.Services.AddScoped<ICommentReponsitory, CommentReponsitory>();
 builder.Services.AddScoped<ISignUpInforReponsitory, SignUpInforReponsitory>();
+builder.Services.AddScoped<IEmailReponsitory, EmailReponsitory>(); // Assuming EmailReponsitory is the implementation
 builder.Services.AddScoped<EmailService>();
 
 

@@ -12,7 +12,9 @@ namespace api.Repository
     public class EmailReponsitory : IEmailReponsitory
     {
         private readonly ApplicationDBContext _context;
-        public EmailReponsitory (ApplicationDBContext context){
+        private readonly IConfiguration _config;
+        public EmailReponsitory (ApplicationDBContext context, IConfiguration cofig){
+            _config = cofig;
             _context = context;
         }
         public async Task<EmailLog> CreateAsync(EmailLog emailModel)

@@ -56,7 +56,7 @@ namespace api.Controllers
         }
 
         [HttpPost("send-email")]
-        public async Task<IActionResult> SendEmail([FromBody] EmailDto   request)
+        public async Task<IActionResult> SendEmail([FromBody] EmailDto request)
         {
             try
             {
