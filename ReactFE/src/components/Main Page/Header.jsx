@@ -1,4 +1,6 @@
 import React, { memo } from 'react';
+import { Link } from 'react-router-dom'; 
+import AdminDashboard from '../../AdminDashboard';
 
 const Container = memo(function Container() {
   return (
@@ -13,7 +15,7 @@ const Container = memo(function Container() {
       {/* Navigation Menu */}
       <nav className="main-nav">
         <ul className="nav-list">
-          <li><a href="#" className="nav-link" style={{color:'black'}}>Giới thiệu</a></li>
+          <li><Link to="/AdminDashboard" className="nav-link" style={{ color: 'black' }}>Giới thiệu</Link></li>
           <li><a href="#" className="nav-link" style={{color:'black'}}>Giảng viên</a></li>
           <li><a href="#" className="nav-link" style={{color:'black'}}>Học viên</a></li>
           <li><a href="#" className="nav-link" style={{color:'black'}}>Khóa học</a></li>

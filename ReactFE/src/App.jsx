@@ -22,8 +22,6 @@ import CourseList from './components/CourseList';
 import CustomerChatPopup from './components/CustomerChatPopup';
 
 
-
-
 function App() {
   const [courses, setCourses] = useState([]); 
   const [loading, setLoading] = useState(true); 
