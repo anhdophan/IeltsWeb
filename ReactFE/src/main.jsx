@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     element: <AdminChat/>, 
   },
   {
-    path: "/AdminDashboard", 
+    path: "/AdminDashboard/*", 
     element: <AdminDashboard/>, 
   },
 ]);
