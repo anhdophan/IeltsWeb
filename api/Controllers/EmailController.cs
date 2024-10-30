@@ -9,6 +9,7 @@ using api.Mappers;
 using api.Models;
 using IeltsWebLearn.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace api.Controllers
 {
@@ -55,13 +56,22 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById),new {id=emailModel.Id},emailModel.ToEmailDto());
         }
 
-        [HttpPost("send-email")]
-        public async Task<IActionResult> SendEmail([FromBody] EmailDto request)
+        [HttpPost("SendWithTemplate")]
+        public async Task<IActionResult> SendEmailWithTemplate([FromBody] EmailDto request)
         {
             try
             {
-                await _emailService.SendEmailAsync(request.CustomerEmail, request.Subject, request.Message);
-                return Ok(new { message = "Email sent successfully!" });
+                // Load template and replace placeholders
+                string templatePath = "Path/To/Your/Template/emailTemplate.txt";
+                string emailTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
+                string populatedMessage = emailTemplate
+                    .Replace("{CustomerName}", request.CustomerName)
+                    .Replace("{CustomerEmail}", request.CustomerEmail)
+                    .Replace("{Phone}", request.Phone);
+                
+                await _emailService.SendEmailAsync(request.CustomerEmail, request.Subject, populatedMessage);
+                
+                return Ok(new { message = "Email sent with populated template successfully!" });
             }
             catch (Exception ex)
             {

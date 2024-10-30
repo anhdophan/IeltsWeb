@@ -12,5 +12,8 @@ namespace api.Dtos.Email
         public string Subject { get; set; }
         public string Message { get; set; }
         public DateTime SentTime { get; set; }
+        public string CustomerName {get;set;}
+        public string Phone {get;set;}
+
     }
 }

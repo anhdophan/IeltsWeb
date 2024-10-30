@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Typography, Box } from '@mui/material';
 import '../styles/Other/CourseRegistrationPopupStyle.css';
-import axios from 'axios';
 
 export default function CourseRegistrationPopup({ open, onClose, course }) {
     const navigate = useNavigate();
@@ -10,13 +9,10 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [errors, setErrors] = useState({ email: '', phone: '' });
-    const [successPopupOpen, setSuccessPopupOpen] = useState(false); // Success popup state
+    const [successPopupOpen, setSuccessPopupOpen] = useState(false);
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9]{10}$/;
-
-    const subject = "Chào mừng bạn đến với Jumbo Book Store";
-    const message = "Chúng tôi rất vui được phục vụ bạn. Cảm ơn vì đã đăng ký!";
 
     const handleCreateSignUp = async () => {
         let isValid = true;
@@ -47,7 +43,8 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
                 if (response.ok) {
                     const createdSignUp = await response.json();
                     console.log('Đăng Ký Thành Công:', createdSignUp);
-                    setSuccessPopupOpen(true); // Open success popup
+                    setSuccessPopupOpen(true);
+                    sendEmailWithTemplate();  // Send email after successful sign-up
                     onClose();
                 } else {
                     console.error('Lỗi tạo đăng ký:', await response.json());
@@ -61,35 +58,34 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
             alert('Vui lòng sửa lỗi trước khi đăng ký.');
         }
     };
-    
-    const saveEmail = async (customerEmail) => {
+
+    const sendEmailWithTemplate = async (customerEmail) => {
         try {
-            const response = await fetch('https://ieltsweb.onrender.com/api/Email', {
+            const response = await fetch('https://ieltsweb.onrender.com/api/Email/SendWithTemplate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     customerEmail, 
-                    subject, 
-                    message
+                    customerName: name, 
+                    phone: phone, 
+                    subject,
                 }),
             });
     
             if (response.ok) {
-                const createdEmailMess = await response.json();
-                console.log('Email đã được tạo', createdEmailMess);
+                console.log('Email sent with template successfully!');
             } else {
-                const errorData = await response.json();
-                console.error('Lỗi khi lưu nội dung Email:', errorData);
-                alert('Có lỗi xảy ra khi lưu nội dung Email.');
+                console.error('Error:', await response.json());
+                alert('Error sending email with template.');
             }
         } catch (error) {
-            console.error('Lỗi kết nối:', error);
-            alert('Lỗi kết nối đến máy chủ.');
+            console.error('Connection error:', error);
+            alert('Connection error.');
         }
     };
-
+    
     return (
         <>
             <Dialog 
@@ -164,8 +160,6 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
                     <Button 
                         onClick={() => {
                             handleCreateSignUp();
-                            sendEmail(email);
-                            saveEmail(email);
                         }} 
                         className="register-button"
                     >
@@ -176,15 +170,15 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
 
             {/* Success Popup */}
             <Dialog open={successPopupOpen} onClose={() => setSuccessPopupOpen(false)}>
-    <DialogTitle>Đăng ký thành công</DialogTitle>
-    <DialogContent>
-        <Typography>Cảm ơn bạn đã đăng ký khóa học!</Typography>
-        <Typography>Email xác nhận đã được gửi tới {email}. Vui lòng kiểm tra!</Typography>
-    </DialogContent>
-    <DialogActions>
-        <Button onClick={() => setSuccessPopupOpen(false)}>Đóng</Button>
-    </DialogActions>
-</Dialog>
+                <DialogTitle>Đăng ký thành công</DialogTitle>
+                <DialogContent>
+                    <Typography>Cảm ơn bạn đã đăng ký khóa học!</Typography>
+                    <Typography>Email xác nhận đã được gửi tới {email}. Vui lòng kiểm tra!</Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setSuccessPopupOpen(false)}>Đóng</Button>
+                </DialogActions>
+            </Dialog>
         </>
     );
 }
