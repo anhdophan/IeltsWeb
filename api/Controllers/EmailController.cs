@@ -62,7 +62,7 @@ namespace api.Controllers
             try
             {
                 // Load template and replace placeholders
-                string templatePath = "Path/To/Your/Template/emailTemplate.txt";
+                string templatePath = "api/Templates/EmailTemplate.txt";
                 string emailTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
                 string populatedMessage = emailTemplate
                     .Replace("{CustomerName}", request.CustomerName)

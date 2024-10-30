@@ -14,6 +14,8 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9]{10}$/;
 
+    const subject = "Chào mừng bạn đến với Jumbo Book Store";
+
     const handleCreateSignUp = async () => {
         let isValid = true;
         const newErrors = { email: '', phone: '' };
@@ -44,7 +46,7 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
                     const createdSignUp = await response.json();
                     console.log('Đăng Ký Thành Công:', createdSignUp);
                     setSuccessPopupOpen(true);
-                    sendEmailWithTemplate();  // Send email after successful sign-up
+                    sendEmailWithTemplate(email);  // Send email after successful sign-up
                     onClose();
                 } else {
                     console.error('Lỗi tạo đăng ký:', await response.json());
@@ -71,20 +73,23 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
                     customerName: name, 
                     phone: phone, 
                     subject,
+                    message: `Xin chào ${name}, cảm ơn bạn đã đăng ký!`, // or templateName if required
                 }),
             });
     
             if (response.ok) {
                 console.log('Email sent with template successfully!');
             } else {
-                console.error('Error:', await response.json());
-                alert('Error sending email with template.');
+                const errorResponse = await response.json();
+                console.error('Error:', errorResponse);
+                alert(`Error sending email with template: ${errorResponse.title}`);
             }
         } catch (error) {
             console.error('Connection error:', error);
             alert('Connection error.');
         }
     };
+    
     
     return (
         <>
