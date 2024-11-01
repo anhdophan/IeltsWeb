@@ -62,7 +62,7 @@ namespace api.Controllers
         try
         {
             // Path to the EmailTemplate.txt file
-            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "api", "Templates", "EmailTemplate.txt");
+            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "EmailTemplate.txt");
 
             // Read the template file
             if (!System.IO.File.Exists(templatePath))
