@@ -24,7 +24,7 @@ namespace api.Repository
             return emailModel;
         }
 
-        public async Task<EmailLog?> DeleteAsync(string id)
+        public async Task<EmailLog?> DeleteAsync(int id)
         {
             var emailModel = await _context.EmailLogs.FirstOrDefaultAsync(x=>x.Id==id);
 
@@ -42,7 +42,7 @@ namespace api.Repository
             return await _context.EmailLogs.ToListAsync();
         }
 
-        public async Task<EmailLog?> GetByIdAsync(string id)
+        public async Task<EmailLog?> GetByIdAsync(int id)
         {
             return await _context.EmailLogs.FindAsync(id);
         }
