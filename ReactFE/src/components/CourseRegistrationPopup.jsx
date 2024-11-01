@@ -61,34 +61,39 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
         }
     };
 
-    const sendEmailWithTemplate = async (customerEmail) => {
+    const sendEmailWithTemplate = async (name, email, phone, subject) => {
         try {
-            const response = await fetch('https://ieltsweb.onrender.com/api/Email/SendWithTemplate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    customerEmail, 
-                    customerName: name, 
-                    phone: phone, 
-                    subject,
-                    message: `Xin chào ${name}, cảm ơn bạn đã đăng ký!`, // or templateName if required
-                }),
-            });
-    
-            if (response.ok) {
-                console.log('Email sent with template successfully!');
-            } else {
-                const errorResponse = await response.json();
-                console.error('Error:', errorResponse);
-                alert(`Error sending email with template: ${errorResponse.title}`);
-            }
+          const body = JSON.stringify({
+            CustomerEmail: email,
+            CustomerName: name,
+            Phone: phone,
+            Subject: subject,
+            // ... other fields as needed
+          });
+      
+          console.log("Sending email with body:", body); // Log the request body for debugging
+      
+          const response = await fetch('https://ieltsweb.onrender.com/api/Email/SendWithTemplate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: body,
+          });
+      
+          if (response.ok) {
+            console.log('Email sent with template successfully!');
+          } else {
+            const errorResponse = await response.json();
+            console.error('Error:', errorResponse);
+            alert(`Error sending email with template: ${errorResponse.error}`);
+          }
         } catch (error) {
-            console.error('Connection error:', error);
-            alert('Connection error.');
+          console.error('Connection error:', error);
+          alert('Connection error. Please check your internet connection or contact support.');
         }
-    };
+      };
+    
     
     
     return (

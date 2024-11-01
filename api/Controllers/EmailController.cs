@@ -49,28 +49,37 @@ namespace api.Controllers
             return Ok(email.ToEmailDto());
         }
 
-        [HttpPost]
+        [HttpPost]    
         public async Task<IActionResult> Create([FromBody] CreateEmailRequestDto emailDto){
             var emailModel = emailDto.ToEmailFromCreateDTO();
             await _emailRepo.CreateAsync(emailModel);
             return CreatedAtAction(nameof(GetById),new {id=emailModel.Id},emailModel.ToEmailDto());
         }
 
-        [HttpPost("SendWithTemplate")]
+       [HttpPost("SendWithTemplate")]
         public async Task<IActionResult> SendEmailWithTemplate([FromBody] EmailDto request)
         {
             try
             {
-                // Load template and replace placeholders
+                // Ensure the template path is correct
                 var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "EmailTemplate.txt");
+                
+                // Check if the file exists
+                if (!System.IO.File.Exists(templatePath))
+                {
+                    return StatusCode(500, new { message = "Email template not found." });
+                }
+
+                // Load template and replace placeholders
                 string emailTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
                 string populatedMessage = emailTemplate
                     .Replace("{CustomerName}", request.CustomerName)
                     .Replace("{CustomerEmail}", request.CustomerEmail)
                     .Replace("{Phone}", request.Phone);
-                
+
+                // Send email using the email service
                 await _emailService.SendEmailAsync(request.CustomerEmail, request.Subject, populatedMessage);
-                
+
                 return Ok(new { message = "Email sent with populated template successfully!" });
             }
             catch (Exception ex)
@@ -78,5 +87,6 @@ namespace api.Controllers
                 return StatusCode(500, new { message = "Error sending email", error = ex.Message });
             }
         }
+
     }
 }
