@@ -37,7 +37,7 @@ namespace api.Controllers
         }
 
         [HttpGet("{Id}")]
-        public async Task<IActionResult> GetById([FromRoute]int Id)
+        public async Task<IActionResult> GetById([FromRoute]string Id)
         {
             var email = await _emailRepo.GetByIdAsync(Id);
 
