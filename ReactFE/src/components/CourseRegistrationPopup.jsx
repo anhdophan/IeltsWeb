@@ -46,7 +46,7 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
                     const createdSignUp = await response.json();
                     console.log('Đăng Ký Thành Công:', createdSignUp);
                     setSuccessPopupOpen(true);
-                    sendEmailWithTemplate(email);  // Send email after successful sign-up
+                    sendEmailWithTemplate(email, name, phone, subject);  // Send email after successful sign-up
                     onClose();
                 } else {
                     console.error('Lỗi tạo đăng ký:', await response.json());
@@ -81,13 +81,16 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
             body: body,
           });
       
-          if (response.ok) {
-            console.log('Email sent with template successfully!');
-          } else {
+          if (!response.ok) {
             const errorResponse = await response.json();
             console.error('Error:', errorResponse);
-            alert(`Error sending email with template: ${errorResponse.error}`);
-          }
+    
+            if (errorResponse.errors && errorResponse.errors.Message) {
+                alert(`Error sending email with template: Message field is required.`);
+            } else {
+                alert(`Error sending email with template: ${errorResponse.error}`);
+            }
+        }
         } catch (error) {
           console.error('Connection error:', error);
           alert('Connection error. Please check your internet connection or contact support.');

@@ -73,8 +73,16 @@ namespace api.Controllers
                     return StatusCode(500, new { message = "Email template not found." });
                 }
 
+                string emailTemplate;
+                try
+                {
+                    emailTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, new { message = "Error reading email template", error = ex.Message });
+                }
                 // Load template and replace placeholders
-                string emailTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
                 string populatedMessage = emailTemplate
                     .Replace("{CustomerName}", request.CustomerName)
                     .Replace("{CustomerEmail}", request.CustomerEmail)
