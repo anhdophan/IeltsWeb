@@ -56,14 +56,17 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById),new {id=emailModel.Id},emailModel.ToEmailDto());
         }
 
-       [HttpPost("SendWithTemplate")]
+        [HttpPost("SendWithTemplate")]
         public async Task<IActionResult> SendEmailWithTemplate([FromBody] EmailDto request)
         {
             try
             {
+                // Generate a unique ID (using Guid)
+                request.Id = Guid.NewGuid().ToString();
+
                 // Ensure the template path is correct
                 var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "EmailTemplate.txt");
-                
+
                 // Check if the file exists
                 if (!System.IO.File.Exists(templatePath))
                 {
@@ -80,7 +83,7 @@ namespace api.Controllers
                 // Send email using the email service
                 await _emailService.SendEmailAsync(request.CustomerEmail, request.Subject, populatedMessage);
 
-                return Ok(new { message = "Email sent with populated template successfully!" });
+                return Ok(new { message = "Email sent with populated template successfully!", id = request.Id });
             }
             catch (Exception ex)
             {
