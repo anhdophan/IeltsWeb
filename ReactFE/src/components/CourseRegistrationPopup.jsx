@@ -81,16 +81,13 @@ export default function CourseRegistrationPopup({ open, onClose, course }) {
             body: body,
           });
       
-          if (!response.ok) {
+          if (response.ok) {
+            console.log('Email sent with template successfully!');
+          } else {
             const errorResponse = await response.json();
             console.error('Error:', errorResponse);
-    
-            if (errorResponse.errors && errorResponse.errors.Message) {
-                alert(`Error sending email with template: Message field is required.`);
-            } else {
-                alert(`Error sending email with template: ${errorResponse.error}`);
-            }
-        }
+            alert(`Error sending email with template: ${errorResponse.error}`);
+          }
         } catch (error) {
           console.error('Connection error:', error);
           alert('Connection error. Please check your internet connection or contact support.');

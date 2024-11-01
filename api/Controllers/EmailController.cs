@@ -37,7 +37,7 @@ namespace api.Controllers
         }
 
         [HttpGet("{Id}")]
-        public async Task<IActionResult> GetById([FromRoute]string Id)
+        public async Task<IActionResult> GetById([FromRoute]int Id)
         {
             var email = await _emailRepo.GetByIdAsync(Id);
 
@@ -56,33 +56,22 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById),new {id=emailModel.Id},emailModel.ToEmailDto());
         }
 
-        [HttpPost("SendWithTemplate")]
+       [HttpPost("SendWithTemplate")]
         public async Task<IActionResult> SendEmailWithTemplate([FromBody] EmailDto request)
         {
             try
             {
-                // Generate a unique ID (using Guid)
-                request.Id = Guid.NewGuid().ToString();
-
                 // Ensure the template path is correct
                 var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "EmailTemplate.txt");
-
+                
                 // Check if the file exists
                 if (!System.IO.File.Exists(templatePath))
                 {
                     return StatusCode(500, new { message = "Email template not found." });
                 }
 
-                string emailTemplate;
-                try
-                {
-                    emailTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, new { message = "Error reading email template", error = ex.Message });
-                }
                 // Load template and replace placeholders
+                string emailTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
                 string populatedMessage = emailTemplate
                     .Replace("{CustomerName}", request.CustomerName)
                     .Replace("{CustomerEmail}", request.CustomerEmail)
@@ -91,7 +80,7 @@ namespace api.Controllers
                 // Send email using the email service
                 await _emailService.SendEmailAsync(request.CustomerEmail, request.Subject, populatedMessage);
 
-                return Ok(new { message = "Email sent with populated template successfully!", id = request.Id });
+                return Ok(new { message = "Email sent with populated template successfully!" });
             }
             catch (Exception ex)
             {

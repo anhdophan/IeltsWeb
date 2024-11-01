@@ -10,9 +10,9 @@ namespace api.Interfaces
     {
         Task<List<EmailLog>> GetAllAsync();
         // ? bởi vì fistordefault có thể trả về null
-        Task<EmailLog?> GetByIdAsync(string id);
+        Task<EmailLog?> GetByIdAsync(int id);
         Task<EmailLog> CreateAsync(EmailLog emailModel);
-        Task<EmailLog?> DeleteAsync(string id);
+        Task<EmailLog?> DeleteAsync(int id);
         
     }
 }
