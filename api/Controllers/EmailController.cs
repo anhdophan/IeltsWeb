@@ -56,36 +56,47 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById),new {id=emailModel.Id},emailModel.ToEmailDto());
         }
 
-       [HttpPost("SendWithTemplate")]
-        public async Task<IActionResult> SendWithTemplate([FromBody] EmailDto request)
+      [HttpPost("SendWithTemplate")]
+    public async Task<IActionResult> SendWithTemplate([FromBody] EmailDto request)
+    {
+        try
         {
-            try
+            // Path to the EmailTemplate.txt file
+            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "api", "Templates", "EmailTemplate.txt");
+
+            // Read the template file
+            if (!System.IO.File.Exists(templatePath))
+                return NotFound(new { message = "Template file not found" });
+
+            string templateContent = await System.IO.File.ReadAllTextAsync(templatePath);
+
+            // Replace placeholders with dynamic content
+            string message = templateContent
+                .Replace("{Name}", request.CustomerName)
+                .Replace("{Phone}", request.Phone)
+                .Replace("{Email}", request.CustomerEmail);
+
+            // Send the email
+            await _emailService.SendEmailAsync(request.CustomerEmail, request.Subject, message);
+
+            // Save email details to the database (optional)
+            var emailModel = new EmailLog
             {
-                // Path to the EmailTemplate.txt file
-                var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "api", "Templates", "EmailTemplate.txt");
+                CustomerEmail = request.CustomerEmail,
+                Subject = request.Subject,
+                Message = message, // Save the generated message
+                SentTime = DateTime.UtcNow,
+            };
+            await _emailRepo.CreateAsync(emailModel);
 
-                // Read the template file
-                if (!System.IO.File.Exists(templatePath))
-                    return NotFound(new { message = "Template file not found" });
-
-                string templateContent = await System.IO.File.ReadAllTextAsync(templatePath);
-
-                // Replace placeholders with dynamic content
-                string message = templateContent
-                    .Replace("{CustomerName}", request.CustomerName)
-                    .Replace("{Phone}", request.Phone)
-                    .Replace("{Email}", request.CustomerEmail);
-
-                // Send the email
-                await _emailService.SendEmailAsync(request.CustomerEmail, request.Subject, message);
-
-                return Ok(new { message = "Email sent successfully!" });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Error sending email", error = ex.Message });
-            }
+            return Ok(new { message = "Email sent and saved successfully!" });
         }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Error sending email", error = ex.Message });
+        }
+    }
+
 
     }
 }
