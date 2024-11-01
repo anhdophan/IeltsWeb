@@ -57,30 +57,29 @@ namespace api.Controllers
         }
 
        [HttpPost("SendWithTemplate")]
-        public async Task<IActionResult> SendEmailWithTemplate([FromBody] EmailDto request)
+        public async Task<IActionResult> SendWithTemplate([FromBody] EmailDto request)
         {
             try
             {
-                // Ensure the template path is correct
-                var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "EmailTemplate.txt");
-                
-                // Check if the file exists
+                // Path to the EmailTemplate.txt file
+                var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "api", "Templates", "EmailTemplate.txt");
+
+                // Read the template file
                 if (!System.IO.File.Exists(templatePath))
-                {
-                    return StatusCode(500, new { message = "Email template not found." });
-                }
+                    return NotFound(new { message = "Template file not found" });
 
-                // Load template and replace placeholders
-                string emailTemplate = await System.IO.File.ReadAllTextAsync(templatePath);
-                string populatedMessage = emailTemplate
+                string templateContent = await System.IO.File.ReadAllTextAsync(templatePath);
+
+                // Replace placeholders with dynamic content
+                string message = templateContent
                     .Replace("{CustomerName}", request.CustomerName)
-                    .Replace("{CustomerEmail}", request.CustomerEmail)
-                    .Replace("{Phone}", request.Phone);
+                    .Replace("{Phone}", request.Phone)
+                    .Replace("{Email}", request.CustomerEmail);
 
-                // Send email using the email service
-                await _emailService.SendEmailAsync(request.CustomerEmail, request.Subject, populatedMessage);
+                // Send the email
+                await _emailService.SendEmailAsync(request.CustomerEmail, request.Subject, message);
 
-                return Ok(new { message = "Email sent with populated template successfully!" });
+                return Ok(new { message = "Email sent successfully!" });
             }
             catch (Exception ex)
             {
