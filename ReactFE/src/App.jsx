@@ -1,34 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CourseList from './components/CourseList'; // Component danh sách khóa học
-import { Container, Typography, Box, CircularProgress } from '@mui/material'; // Import Material-UI components
-import './styles.css'; // Import styles
-import Header from './components/Header';
+import { Container, Typography, Box, CircularProgress } from '@mui/material'; 
+import './styles.css'; 
+import './App.css';
+import './styles/Main Page/homepagestyle.css';
+import './styles/Main Page/HeaderStyle.css';
+import './styles/Main Page/BannerStyle.css';
+import './styles/Main Page/ChooseUsStyle.css';
+import './styles/Main Page/CourseListStyle.css';
+import './styles/Main Page/LearningPathStyle.css';
+import './styles/Main Page/TeacherProfileStyle.css';
+import './styles/Main Page/FooterStyle.css';
+import Header from './components/Main Page/Header';
+import Banner from './components/Main Page/Banner';
+import ChooseUs from './components/Main Page/ChooseUs';
+import LearningPath from './components/Main Page/LearningPath';
+import TeacherSection from './components/Main Page/TeacherSection';
+import RegistrationForm from './components/Main Page/RegistrationForm';
+import Footer from './components/Main Page/Footer';
+import CourseList from './components/CourseList';
+import CustomerChatPopup from './components/CustomerChatPopup';
+
 
 function App() {
-  // Trạng thái dữ liệu khóa học
-  const [courses, setCourses] = useState([]); // Dữ liệu khóa học
-  const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
-  const [error, setError] = useState(null); // Trạng thái lỗi
+  const [courses, setCourses] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
-  // Hàm fetch dữ liệu khóa học từ API
   const fetchCourses = async () => {
     try {
-      const response = await axios.get('http://localhost:5009/api/Course');
-      setCourses(response.data); // Gán dữ liệu vào biến courses
+        const response = await fetch('https://ieltsweb.onrender.com/api/Course', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            setCourses(data); // Set the courses data
+        } else {
+            console.error('Error fetching courses:', response.statusText);
+            setError('Lỗi khi tải dữ liệu!');
+        }
     } catch (error) {
-      setError('Lỗi khi tải dữ liệu!'); // Xử lý lỗi
+        console.error('Lỗi kết nối:', error);
+        setError('Lỗi khi tải dữ liệu!');
     } finally {
-      setLoading(false); // Đặt trạng thái tải về false dù có lỗi hay không
+        setLoading(false);
     }
-  };
+};
 
-  // Gọi fetchCourses khi component mount
+
   useEffect(() => {
     fetchCourses();
   }, []);
 
-  // Nếu đang tải, hiển thị spinner
   if (loading) {
     return (
       <Box className="center-content" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -40,7 +67,6 @@ function App() {
     );
   }
 
-  // Nếu có lỗi, hiển thị thông báo lỗi
   if (error) {
     return (
       <Box className="center-content" sx={{ textAlign: 'center', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -52,24 +78,22 @@ function App() {
   }
 
   return (
-    <Container maxWidth="md" className="center-content" sx={{ minHeight: '100vh', paddingTop: '4rem' }}>
-    <Header /> {/* Hiển thị header trên cùng */}
-    <Box 
-      sx={{ 
-        maxHeight: 'calc(100vh - 200px)', 
-        overflowY: 'auto', 
-        overflowX: 'hidden', 
-        paddingBottom: '4rem',
-        scrollbarWidth: 'none', // Firefox
-        '&::-webkit-scrollbar': {
-          display: 'none' // Chrome, Safari, WebKit
-        }
-      }}
+    <div 
+      className="center-content" 
+      sx={{ minHeight: '100vh', paddingTop: '80px' }} // Thêm padding-top để tránh Header đè lên nội dung
     >
-      <CourseList data={courses} />
-    </Box>
-    </Container>
-
+      <Header />
+      <Banner/>
+      <ChooseUs/>
+      <LearningPath/>
+      <TeacherSection/>
+      <main>
+          <CourseList data={courses} />
+      </main>
+      <RegistrationForm/>
+      <CustomerChatPopup/>
+      <Footer/>
+    </div>
   );
 }
 

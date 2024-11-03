@@ -64,6 +64,7 @@ namespace api.Respository
             existingCourse.courseName= courseDto.courseName;
             existingCourse.price = courseDto.price;
             existingCourse.courseDescription=courseDto.courseDescription;
+            existingCourse.courseIMG=courseDto.courseIMG;
             
             await _context.SaveChangesAsync();
 

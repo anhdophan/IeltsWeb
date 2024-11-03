@@ -1,9 +1,9 @@
+using api.Email;
 using api.Interfaces;
 using api.Repository;
 using api.Respository;
 using IeltsWebLearn.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,34 +24,41 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5174") // Địa chỉ frontend
-                  .AllowAnyHeader() // Cho phép bất kỳ header nào
-                  .AllowAnyMethod(); // Cho phép mọi phương thức HTTP (GET, POST, PUT, DELETE,...)
+            policy.WithOrigins("http://localhost:5173", "http://localhost:5174","https://ielts-ntcy29pfr-anhdophans-projects.vercel.app") // Địa chỉ frontend
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // Cho phép gửi credentials nếu cần
         });
 });
 
-var app = builder.Build();
-
-// Use CORS
-app.UseCors("AllowSpecificOrigin");
-
-// Connect to the database
+// Connect to the PostgreSQL database
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+// Đăng ký SignalR service
+builder.Services.AddSignalR();  // Thêm dòng này để đăng ký SignalR
+
 // Register Repositories
 builder.Services.AddScoped<ICourseReponsitory, CourseReponsitory>();
 builder.Services.AddScoped<ICommentReponsitory, CommentReponsitory>();
+builder.Services.AddScoped<ISignUpInforReponsitory, SignUpInforReponsitory>();
+builder.Services.AddScoped<IEmailReponsitory, EmailReponsitory>(); // Assuming EmailReponsitory is the implementation
+builder.Services.AddScoped<EmailService>();
 
+
+
+// Build the app after configuring services
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || !app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 
@@ -59,6 +66,8 @@ app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.MapControllers();
 

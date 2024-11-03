@@ -1,33 +1,22 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { Box, Typography, Avatar, Button, Pagination } from '@mui/material';
-import { useNavigate, Link } from 'react-router-dom';
+import { Box, Typography, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import CourseRegistrationPopup from './CourseRegistrationPopup'; // Import the pop-up component
 
 export default function CourseList({ data }) {
   const navigate = useNavigate();
+  const [openPopup, setOpenPopup] = React.useState(false); // State to open/close the pop-up
+  const [selectedCourse, setSelectedCourse] = React.useState(null); // State for selected course
 
-  // Số khóa học hiển thị mỗi trang (6 khóa học - 2 hàng, mỗi hàng 3 box)
-  const itemsPerPage = 6;
-
-  // Sử dụng state để lưu số trang hiện tại
-  const [page, setPage] = useState(1);
-
-  // Tính tổng số trang
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-
-  // Chỉ hiển thị khóa học của trang hiện tại
-  const paginatedData = data.slice(
-    (page - 1) * itemsPerPage,
-    page * itemsPerPage
-  );
-
-  const handleClick = (id) => {
-    navigate(`/Course/${id}`);
+  // Handle click event to open the pop-up and pass the selected course
+  const handleClick = (course) => {
+    setSelectedCourse(course); // Set the course that was clicked
+    setOpenPopup(true); // Open the pop-up
   };
 
-  // Xử lý khi người dùng thay đổi trang
-  const handleChangePage = (event, value) => {
-    setPage(value);
+  // Handle closing the pop-up
+  const handleClosePopup = () => {
+    setOpenPopup(false); // Close the pop-up
   };
 
   return (
@@ -39,35 +28,33 @@ export default function CourseList({ data }) {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        maxWidth: '1200px',
         margin: '0 auto',
-        overflowX: 'auto',
         position: 'relative',
-        paddingTop: '60px', // Thêm khoảng trống phía trên để không bị đè lên các khóa học
+        paddingTop: '60px', // Add space at the top to prevent overlap with courses
       }}
     >
-      {/* Hiển thị danh sách các khóa học */}
+      {/* Display list of courses */}
       <Box
         sx={{
           display: 'grid',
           gridTemplateColumns: {
-            xs: '1fr', // 1 box trên mỗi hàng trên màn hình nhỏ
-            sm: '1fr 1fr', // 2 box trên mỗi hàng trên màn hình trung bình
-            md: '1fr 1fr 1fr', // 3 box trên mỗi hàng trên màn hình lớn
+            xs: '1fr', // 1 box per row on small screens
+            sm: '1fr 1fr', // 2 boxes per row on medium screens
+            md: 'repeat(3, 1fr)', // 3 boxes per row on large screens
           },
           gap: '20px',
-          width: '100%',
+          width: '900px',
         }}
       >
-        {paginatedData.length > 0 ? (
-          paginatedData.map((item) => (
+        {data.length > 0 ? (
+          data.map((item, index) => (
             <Box
               key={item.id}
               sx={{
                 padding: '20px',
                 boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
                 borderRadius: '8px',
-                background: '#fff',
+                background: index % 2 === 0 ? '#17205E' : '#1F2A6B', // Different background for alternating colors
                 textAlign: 'center',
                 transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                 '&:hover': {
@@ -76,43 +63,34 @@ export default function CourseList({ data }) {
                 },
               }}
             >
-              {/* Hiển thị hình ảnh khóa học */}
-              <Avatar
-                src={item.image}
-                alt={item.courseName}
-                sx={{
+              {/* Display course image */}
+              <img
+                src={item.courseIMG}
+                alt={item.courseName} // Add alt text for accessibility
+                style={{
                   width: '100%',
                   height: '150px',
                   marginBottom: '15px',
                   borderRadius: '8px',
                   objectFit: 'cover',
                 }}
-                variant="square"
               />
 
-              {/* Hiển thị tên khóa học */}
-              <Typography variant="h6" sx={{ marginBottom: '10px' }}>
+              {/* Display course name */}
+              <Typography variant="h6" sx={{ marginBottom: '10px', color: 'white' }}>
                 {item.courseName}
               </Typography>
 
-              {/* Hiển thị mô tả khóa học */}
-              <Typography variant="body2" sx={{ marginBottom: '15px' }}>
-                {item.description ? item.description : 'Không có mô tả.'}
+              {/* Display course description */}
+              <Typography variant="body2" sx={{ marginBottom: '15px', color: 'white' }}>
+                {item.courseDescription ? item.courseDescription : 'Không có mô tả.'}
               </Typography>
 
-              {/* Hiển thị giá khóa học */}
-              <Typography
-                variant="subtitle1"
-                sx={{ fontWeight: 'bold', marginBottom: '15px', color: 'green' }}
-              >
-                Giá: {item.price}
-              </Typography>
-
-              {/* Nút đăng ký */}
+              {/* Registration button */}
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => handleClick(item.id)}
+                onClick={() => handleClick(item)} // Pass the selected course
               >
                 Đăng ký
               </Button>
@@ -129,15 +107,14 @@ export default function CourseList({ data }) {
         )}
       </Box>
 
-      {/* Điều khiển phân trang */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-        <Pagination
-          count={totalPages}
-          page={page}
-          onChange={handleChangePage}
-          color="primary"
+      {/* Course Registration Pop-up */}
+      {selectedCourse && (
+        <CourseRegistrationPopup
+          open={openPopup}
+          onClose={handleClosePopup}
+          course={selectedCourse} // Pass the selected course details to the pop-up
         />
-      </Box>
+      )}
     </Box>
   );
 }

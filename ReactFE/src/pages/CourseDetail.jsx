@@ -15,7 +15,7 @@ export default function CourseDetail() {
   // Hàm lấy thông tin khóa học từ API
   const fetchCourseDetail = async () => {
     try {
-      const response = await axios.get(`http://localhost:5009/api/Course/${id}`);
+      const response = await axios.get(`https://ieltsweb.onrender.com/api/Course/${id}`);
       setCourse(response.data);
     } catch (error) {
       console.error('Error fetching course details:', error);
@@ -50,7 +50,7 @@ export default function CourseDetail() {
       <Paper elevation={3} sx={{ padding: 3, borderRadius: 2, width: '100%', maxWidth: 800 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={4} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Avatar sx={{ width: 120, height: 120, bgcolor: 'primary.main' }}>
+            <Avatar  src={course.courseIMG} sx={ { width: 120, height: 120, bgcolor: 'primary.main' }}>
               <ImageIcon sx={{ fontSize: 60 }} />
             </Avatar>
           </Grid>
