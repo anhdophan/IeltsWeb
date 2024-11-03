@@ -12,6 +12,7 @@ import CourseCreate from "./pages/CourseCreate";
 import CourseRegistrationPopup from "./components/CourseRegistrationPopup";
 import AdminChat from "./pages/AdminChat";
 import AdminDashboard from "./AdminDashboard";
+import StudentDashboard from "./student/StudentDashboard";
 
 // Tạo router với các route cần thiết
 const router = createBrowserRouter([
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/AdminDashboard/*", 
     element: <AdminDashboard/>, 
+  },
+  {
+    path: "/StudentDashboard/*", 
+    element: <StudentDashboard/>, 
   },
 ]);
 
