@@ -47,6 +47,7 @@ const CustomerChatPopup = () => {
             generateUniqueCustomerId();
         }
     }, [isOpen, customerId]);
+    
     const sendMessage = async () => {
         if (connection && message.trim()) {
             try {

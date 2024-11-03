@@ -60,7 +60,7 @@ const Sidebar = () => {
         <div className="sidebar-menu">
           <ul className="menu-list">
             <li className="menu-item">
-              <Link to="/" className="menu-link active">
+              <Link to="/AdminDashboard" className="menu-link active">
                 <span className="menu-link-icon">
                   <MdOutlineGridView size={18} />
                 </span>
@@ -108,7 +108,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="menu-item">
-              <Link to="/" className="menu-link">
+              <Link to="/AdminDashboard/AdminChatScreen" className="menu-link">
                 <span className="menu-link-icon">
                   <MdOutlineMessage size={18} />
                 </span>

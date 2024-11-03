@@ -1,12 +1,10 @@
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "../components/Admin-Dashboard";
 
-const BaseLayout = () => {
+const BaseLayout = ({ toggleTheme, theme }) => {
   return (
     <main className="page-wrapper">
-      {/* left of page */}
-      <Sidebar />
-      {/* right side/content of the page */}
+      <Sidebar toggleTheme={toggleTheme} theme={theme} />
       <div className="content-wrapper">
         <Outlet />
       </div>
