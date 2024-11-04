@@ -76,6 +76,9 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("courseSignUp")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18,1)");
 
@@ -112,6 +115,64 @@ namespace api.Migrations
                     b.ToTable("EmailLogs");
                 });
 
+            modelBuilder.Entity("api.Models.HocVien", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Avatar")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CacKhoaHocDaHoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DiaChi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HoTen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdClass")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCourse")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdTaiKhoanHV")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("NgaySinh")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SDT")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<double>("Score")
+                        .HasColumnType("float");
+
+                    b.Property<int>("courseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("courseId");
+
+                    b.ToTable("HocViens");
+                });
+
             modelBuilder.Entity("api.Models.SignUpInfor", b =>
                 {
                     b.Property<int>("Id")
@@ -127,8 +188,8 @@ namespace api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("emailSt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("nameSt")
                         .IsRequired()
@@ -136,7 +197,8 @@ namespace api.Migrations
 
                     b.Property<string>("phoneSt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.HasKey("Id");
 
@@ -182,6 +244,40 @@ namespace api.Migrations
                     b.ToTable("Student");
                 });
 
+            modelBuilder.Entity("api.Models.TaiKhoanHV", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HocVienId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MatKhau")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TK")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("idHV")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("HocVienId");
+
+                    b.ToTable("TaiKhoanHVs");
+                });
+
             modelBuilder.Entity("IeltsWebLearn.Models.Comment", b =>
                 {
                     b.HasOne("IeltsWebLearn.Models.Course", "Course")
@@ -193,6 +289,17 @@ namespace api.Migrations
                         .HasForeignKey("StudentId");
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("api.Models.HocVien", b =>
+                {
+                    b.HasOne("IeltsWebLearn.Models.Course", "course")
+                        .WithMany()
+                        .HasForeignKey("courseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("course");
                 });
 
             modelBuilder.Entity("api.Models.SignUpInfor", b =>
@@ -213,6 +320,17 @@ namespace api.Migrations
                         .HasForeignKey("CourseId");
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("api.Models.TaiKhoanHV", b =>
+                {
+                    b.HasOne("api.Models.HocVien", "HocVien")
+                        .WithMany()
+                        .HasForeignKey("HocVienId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HocVien");
                 });
 
             modelBuilder.Entity("IeltsWebLearn.Models.Course", b =>

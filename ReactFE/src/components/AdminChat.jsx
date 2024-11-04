@@ -1,114 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import * as signalR from '@microsoft/signalr';
-
-const adminChatContainerStyle = {
-    width: '80%',
-    margin: '20px auto',
-    padding: '20px',
-    border: '1px solid #ccc',
-    borderRadius: '10px',
-    backgroundColor: '#f5f5f5'
-};
-
-const chatMessagesAdminStyle = {
-    height: '400px',
-    overflowY: 'scroll',
-    padding: '10px',
-    backgroundColor: '#fff',
-    border: '1px solid #ccc',
-    borderRadius: '10px',
-    marginBottom: '20px'
-};
-
-const chatInputContainerAdminStyle = {
-    display: 'flex',
-    alignItems: 'center'
-};
-
-const chatInputAdminStyle = {
-    flexGrow: 1,
-    padding: '10px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    marginRight: '10px'
-};
-
-const chatButtonAdminStyle = {
-    padding: '10px',
-    backgroundColor: '#4CAF50',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer'
-};
+import React, { useEffect, useState } from 'react';
+import { HubConnectionBuilder } from '@microsoft/signalr';
+import "../styles/Other/AdminChatStyle.css"
 
 const AdminChat = () => {
     const [connection, setConnection] = useState(null);
-    const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
-    const [admin, setAdmin] = useState('Admin');
+    const [selectedCustomerId, setSelectedCustomerId] = useState('');
+    const [customers, setCustomers] = useState([]);
+    const [messages, setMessages] = useState({}); // Lưu tin nhắn theo từng customerId
 
     useEffect(() => {
-        // Thiết lập kết nối với SignalR
-        const newConnection = new signalR.HubConnectionBuilder()
-            .withUrl("https://ieltsweb.onrender.com/chatHub")
+        const connect = new HubConnectionBuilder()
+            .withUrl("https://ieltsweb.onrender.com/chatHub") // URL Hub của bạn
             .withAutomaticReconnect()
             .build();
-
-        setConnection(newConnection);
-
-        console.log("Khởi tạo kết nối WebSocket...");
-
-        newConnection.start()
-            .then(result => {
-                console.log("Kết nối thành công với Hub!");
-                
-                // Khi nhận tin nhắn từ server, cập nhật vào state chat
-                newConnection.on("ReceiveMessage", (user, message) => {
-                    console.log(`Đã nhận tin nhắn từ ${user}: ${message}`);
-                    setChat(prevChat => [...prevChat, { user, message }]);
-                });
+    
+        setConnection(connect);
+    
+        connect.start()
+            .then(() => {
+                console.log("Connected to chat");
             })
-            .catch(e => console.log("Kết nối thất bại: ", e));
+            .catch(err => console.log("Connection failed: ", err));
+    
+        connect.on("ReceiveMessage", (customerId, message) => {
+            setMessages(prevMessages => ({
+                ...prevMessages,
+                [customerId]: [...(prevMessages[customerId] || []), { user: customerId, message }] // Cập nhật tin nhắn cho customerId cụ thể
+            }));
+        });
 
+        connect.on("ReceiveCustomerId", (customerId) => {
+            setCustomers(prev => [...new Set([...prev, customerId])]); // Thêm khách hàng mới
+        });
+    
+        return () => {
+            connect.stop();
+        };
     }, []);
 
     const sendMessage = async () => {
-        if (connection.connectionStarted) {
+        if (message && connection && selectedCustomerId) {
             try {
-                console.log("Gửi tin nhắn: ", message);
-                await connection.send('SendMessage', admin, message);
+                await connection.invoke("SendMessageToCustomer", selectedCustomerId, message); // Gửi tin nhắn cho khách hàng
+                setMessages(prevMessages => ({
+                    ...prevMessages,
+                    [selectedCustomerId]: [...(prevMessages[selectedCustomerId] || []), { user: "Admin", message }] // Cập nhật tin nhắn cho Admin
+                }));
                 setMessage('');
-            } catch (e) {
-                console.error(e);
+            } catch (err) {
+                console.error("Error sending message: ", err);
             }
-        } else {
-            console.log('Chưa kết nối với server.');
         }
     };
 
     return (
-        <div style={adminChatContainerStyle}>
-            <h2>Chat với khách hàng</h2>
-            <div style={chatMessagesAdminStyle}>
-                {messages.map((m, index) => (
-                    <div key={index}>
-                        <strong>{m.user}:</strong> {m.message}
-                    </div>
-                ))}
+        <div>
+            <h2>Admin Chat</h2>
+            <div>
+                <label>Choose a Customer:</label>
+                <select onChange={(e) => setSelectedCustomerId(e.target.value)} value={selectedCustomerId}>
+                    <option value="">Select a customer</option>
+                    {customers.map((customer, index) => (
+                        <option key={index} value={customer}>{customer}</option>
+                    ))}
+                </select>
             </div>
-            <div style={chatInputContainerAdminStyle}>
-                <input
-                    type="text"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    style={chatInputAdminStyle}
-                    placeholder="Nhập tin nhắn..."
-                />
-                <button onClick={sendMessage} style={chatButtonAdminStyle}>
-                    Gửi
-                </button>
+
+            {/* Hiển thị tin nhắn của khách hàng đã chọn */}
+            <div className="chat-messages">
+                {selectedCustomerId && messages[selectedCustomerId] ? (
+                    messages[selectedCustomerId].map((msg, index) => (
+                        <div key={index} className={msg.user === 'Admin' ? 'admin-message' : 'customer-message'}>
+                            <strong>{msg.user === 'Admin' ? 'Admin' : msg.user}: </strong>{msg.message}
+                        </div>
+                    ))
+                ) : (
+                    <p>No messages for this customer yet.</p> // Thông báo khi chưa có tin nhắn
+                )}
             </div>
+
+            <input
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Type your message..."
+            />
+            <button onClick={sendMessage} disabled={!message || !selectedCustomerId}>Send</button>
         </div>
     );
 };

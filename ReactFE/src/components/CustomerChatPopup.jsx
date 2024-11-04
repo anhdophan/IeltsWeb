@@ -24,24 +24,33 @@ const CustomerChatPopup = () => {
                 .withUrl("https://ieltsweb.onrender.com/chatHub")
                 .withAutomaticReconnect()
                 .build();
-
+    
             setConnection(connect);
-
+    
             connect.start()
                 .then(() => {
                     console.log("Connected to chat");
                     connect.invoke("SendCustomerIdToAdmin", customerId);
+    
+                    // Set up the listener here
+                    connect.on("ReceiveMessage", (fromUser, receivedMessage) => {
+                        console.log(`Received message from ${fromUser}: ${receivedMessage}`); // Debug log
+                        if (fromUser === 'Admin' || fromUser === customerId) {
+                            setMessages(prevMessages => {
+                                const messageExists = prevMessages.some(msg => msg.message === receivedMessage && msg.user === fromUser);
+                                if (!messageExists) {
+                                    return [...prevMessages, { user: fromUser, message: receivedMessage }];
+                                }
+                                return prevMessages;
+                            });
+                        }
+                    });
                 })
                 .catch(err => console.log("Connection failed: ", err));
-
-            connect.on("ReceiveMessage", (fromUser, receivedMessage) => {
-                if (fromUser === 'Admin' || fromUser === customerId) {
-                    setMessages(prevMessages => [...prevMessages, { user: fromUser, message: receivedMessage }]);
-                }
-            });
-
+    
             return () => {
                 connect.stop();
+                connect.off("ReceiveMessage"); // Clean up the listener
             };
         } else if (isOpen && !customerId) {
             generateUniqueCustomerId();
@@ -49,13 +58,14 @@ const CustomerChatPopup = () => {
     }, [isOpen, customerId]);
     
     const sendMessage = async () => {
-        if (connection && message.trim()) {
+        if (message && connection) {
+            console.log("Sending message:", message); // Debug log
             try {
-                await connection.invoke("SendMessage", customerId, message);
-                setMessages((prevMessages) => [...prevMessages, { user: customerId, message }]);
-                setMessage(''); // Clear the input after sending
-            } catch (error) {
-                console.error("Error sending message:", error);
+                await connection.invoke("SendMessageFromCustomer", customerId, message);
+                setMessages(prevMessages => [...prevMessages, { user: "Customer", message }]);
+                setMessage('');
+            } catch (err) {
+                console.error("Error sending message: ", err);
             }
         }
     };
@@ -66,12 +76,12 @@ const CustomerChatPopup = () => {
 
     return (
         <div className="chat-container">
-            {/* Nút Open Chat */}
+            {/* Open Chat Button */}
             <button className="open-chat-btn" onClick={toggleModal}>
                 💬
             </button>
 
-            {/* Khung chat chỉ hiển thị khi isOpen true */}
+            {/* Chat modal only displays when isOpen is true */}
             {isOpen && (
                 <div className="chat-modal">
                     <h2>Customer Chat</h2>

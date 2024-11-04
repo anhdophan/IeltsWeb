@@ -19,6 +19,8 @@ namespace IeltsWebLearn.Data
         public DbSet<SignUpInfor> SignUpInfors {get;set;}
         public DbSet<Student> Student {get;set;}
         public DbSet<EmailLog> EmailLogs {get;set;}
+        public DbSet<HocVien> HocViens { get; set; }
+        public DbSet<TaiKhoanHV> TaiKhoanHVs { get; set; }
 
     }
 }

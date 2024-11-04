@@ -14,6 +14,7 @@ namespace IeltsWebLearn.Models
         public int Id { get; set; }
         public string courseName { get; set; } = string.Empty;
         public string courseIMG { get; set; } = string.Empty;
+        public int courseSignUp { get; set; } 
         //Giới hạn số nhập vào ,1 là chỉ có 1 số thập phân
         [Column(TypeName ="decimal(18,1)")]
         public decimal price { get; set; }

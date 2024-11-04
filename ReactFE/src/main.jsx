@@ -44,10 +44,7 @@ const router = createBrowserRouter([
     path: "/StudentDashboard/*", 
     element: <StudentDashboard/>, 
   },
-  {
-    path: "/AdminChat", 
-    element: <AdminChat/>, 
-  },
+
 ]);
 
 // Render ứng dụng
