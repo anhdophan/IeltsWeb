@@ -35,7 +35,7 @@ namespace api.Models
      public int IdClass { get; set; }
 
      [Required(ErrorMessage = "Bắt buộc")]
-     public int IdTaiKhoanHV { get; set; }
+    
      [Url(ErrorMessage = "Avatar phải là một URL hợp lệ")]
      public string Avatar { get; set; }
      public List<string> CacKhoaHocDaHoc { get; set; } = new List<string>();

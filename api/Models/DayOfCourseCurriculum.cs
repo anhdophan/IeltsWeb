@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using IeltsWebLearn.Models;
+
+namespace api.Models
+{
+    public class DayOfCourseCurriculum
+    {
+        public int Id { get; set; }
+        public DateTime ngayHoc { get; set; } =  DateTime.Now;
+        public string Content { get; set; } = string.Empty;
+        public List<ImgLinkCourseCurr> IdIMGlink { get; set; }
+        public List<VideoLinkCourseCurr> IdlinkVideo { get; set; }
+        public string? LinkQuiz { get; set; }
+        public int? IDCourse { get; set; }
+
+        // Navigation properties
+        public CourseCurriculum? CourseCurriculum { get; set; }
+        public Course? Course { get; set; }
+    }
+}

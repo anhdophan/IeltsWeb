@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using api.Models;
 
 namespace IeltsWebLearn.Models
 {
@@ -14,6 +15,7 @@ namespace IeltsWebLearn.Models
         public int Id { get; set; }
         public string courseName { get; set; } = string.Empty;
         public string courseIMG { get; set; } = string.Empty;
+        public List<ImgLinkCourse> courseIMGMore { get; set; } 
         public int courseSignUp { get; set; } 
         //Giới hạn số nhập vào ,1 là chỉ có 1 số thập phân
         [Column(TypeName ="decimal(18,1)")]
@@ -22,5 +24,12 @@ namespace IeltsWebLearn.Models
         public string courseDescription { get; set; } = string.Empty;
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
+        public DateTime startTime {get;set;}
+        public DateTime endTime {get;set;}
+
+        public int? HV { get; set; }
+        // Thuộc tính điều hướng dùng để truy cập sâu vào Course, ví dụ Course.Id
+        public List<Student> Student { get; set; }
+        public List<VideoLinkCourse> videoLinkCourses { get; set; }
     }
 }

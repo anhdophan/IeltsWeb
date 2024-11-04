@@ -18,6 +18,10 @@ namespace api.Models
         public int? CourseId { get; set; }
         // Thuộc tính điều hướng dùng để truy cập sâu vào Course, ví dụ Course.Id
         public Course? Course { get; set; }
+        
+        public int AccId { get; set; }
+        // Thuộc tính điều hướng dùng để truy cập sâu vào Course, ví dụ Course.Id
+        public TaiKhoanHV TaiKhoanHV { get; set; }
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
     }
