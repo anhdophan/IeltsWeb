@@ -11,7 +11,7 @@ import CourseDetail from "./pages/CourseDetail"; // Nhập component CourseDetai
 import CourseCreate from "./pages/CourseCreate";
 import CourseRegistrationPopup from "./components/CourseRegistrationPopup";
 import AdminDashboard from "./AdminDashboard";
-import StudentDashboard from "./student/StudentDashboard";
+import Dashboard from "./student/Dashboard";
 import AdminChat from "./components/AdminChat";
 
 // Tạo router với các route cần thiết
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/StudentDashboard/*", 
-    element: <StudentDashboard/>, 
+    element: <Dashboard/>, 
   },
 
 ]);

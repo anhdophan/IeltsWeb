@@ -1,24 +1,33 @@
 import React from 'react';
+import styles from './Sidebar.module.css';
 
 const Sidebar = () => {
   return (
-    <aside className="sidebar">
-      <nav className="sidebar-menu">
-        <a href="#" className="menu-item">
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/103b74f03025fc5f1b4100bb53d4b60af540d8986e00f22f3b62b9327fe00f2e?placeholderIfAbsent=true&apiKey=2bafca70f25c4ac98fe13370d7763994" alt="Dashboard" className="menu-icon" />
-          <span className="menu-text">Dashboard</span>
-        </a>
-        <a href="#" className="menu-item">
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/53f3801a2461e52bfd722c03bd363630a2f16e83022817841b053f2ad56adcbb?placeholderIfAbsent=true&apiKey=2bafca70f25c4ac98fe13370d7763994" alt="My Course" className="menu-icon" />
-          <span className="menu-text">My course</span>
-        </a>
-        <a href="#" className="menu-item">
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c4e0f40779561a18608bdd1d714e40496c357251bac697e60754509cfe3a4b7f?placeholderIfAbsent=true&apiKey=2bafca70f25c4ac98fe13370d7763994" alt="More" className="menu-icon" />
-          <span className="menu-text">More</span>
-        </a>
+    <aside className={styles.sidebar}>
+      <nav className={styles.sideNav}>
+        <ul className={styles.navList}>
+          <li className={styles.navItem}>
+            <a href="#dashboard" className={styles.navLink}>
+              <img src="https://cdn.builder.io/api/v1/image/assets/a7156eeee83b466eb594d236000740da/103b74f03025fc5f1b4100bb53d4b60af540d8986e00f22f3b62b9327fe00f2e?apiKey=a7156eeee83b466eb594d236000740da&" alt="" className={styles.navIcon} />
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li className={styles.navItem}>
+            <a href="#my-course" className={styles.navLink}>
+              <img src="https://cdn.builder.io/api/v1/image/assets/a7156eeee83b466eb594d236000740da/53f3801a2461e52bfd722c03bd363630a2f16e83022817841b053f2ad56adcbb?apiKey=a7156eeee83b466eb594d236000740da&" alt="" className={styles.navIcon} />
+              <span>My course</span>
+            </a>
+          </li>
+          <li className={styles.navItem}>
+            <a href="#more" className={styles.navLink}>
+              <img src="https://cdn.builder.io/api/v1/image/assets/a7156eeee83b466eb594d236000740da/4f74cdeeec72a994024227f9e578b896d1be50a519e6090b88f5d2c0c1fefa82?apiKey=a7156eeee83b466eb594d236000740da&" alt="" className={styles.navIcon} />
+              <span>More</span>
+            </a>
+          </li>
+        </ul>
       </nav>
-      <div className="user-profile">
-        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/50939abb0a5b6d03956fa8d1d6dce409ea5246461060abf8dadf6b308dc796fa?placeholderIfAbsent=true&apiKey=2bafca70f25c4ac98fe13370d7763994" alt="Profile" className="profile-icon" />
+      <div className={styles.userProfile}>
+        <img src="https://cdn.builder.io/api/v1/image/assets/a7156eeee83b466eb594d236000740da/379cff6590e80a2f52268c7d8d5f1c4fe27d3f4e40bed163db75872ef7e403d7?apiKey=a7156eeee83b466eb594d236000740da&" alt="User profile" className={styles.profileImage} />
       </div>
     </aside>
   );
