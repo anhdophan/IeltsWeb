@@ -6395,11 +6395,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ieltsWeb\\api\\api.csproj",
+      "projectUniqueName": "E:\\ieltsWeb\\IeltsWeb\\api\\api.csproj",
       "projectName": "api",
-      "projectPath": "E:\\ieltsWeb\\api\\api.csproj",
+      "projectPath": "E:\\ieltsWeb\\IeltsWeb\\api\\api.csproj",
       "packagesPath": "C:\\Users\\mazuo\\.nuget\\packages\\",
-      "outputPath": "E:\\ieltsWeb\\api\\obj\\",
+      "outputPath": "E:\\ieltsWeb\\IeltsWeb\\api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

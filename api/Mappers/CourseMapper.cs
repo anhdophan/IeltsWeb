@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Dtos.Course;
+using api.Dtos.Courses;
 using IeltsWebLearn.Models;
 
 namespace api.Mappers
@@ -16,7 +16,12 @@ namespace api.Mappers
                 courseIMG = courseModel.courseIMG,
                 price = courseModel.price,
                 courseDescription = courseModel.courseDescription,
-                Comments = courseModel.Comments.Select(c=>c.ToCommentDto()).ToList()
+                courseSignUp = courseModel.courseSignUp,
+                startTime = courseModel.startTime,
+                endTime = courseModel.endTime,
+                IdClass = courseModel.IdClass,
+                Comments = courseModel.Comments.Select(c=>c.ToCommentDto()).ToList(),
+
             };
         }
 
@@ -25,7 +30,10 @@ namespace api.Mappers
                 courseName = courseDto.courseName,
                 price = courseDto.price,
                 courseIMG = courseDto.courseIMG,
-                courseDescription = courseDto.courseDescription
+                courseDescription = courseDto.courseDescription,
+                courseSignUp = courseDto.courseSignUp,
+                startTime = courseDto.startTime,
+                endTime = courseDto.endTime,
             };
         }
     }

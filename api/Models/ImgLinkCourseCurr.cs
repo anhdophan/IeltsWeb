@@ -13,8 +13,7 @@ namespace api.Models
         public string Url { get; set; }
 
         // Navigation properties
-        public CourseCurriculum? CourseCurriculum { get; set; }
-        public DayOfCourseCurriculum? DayOfCourseCurriculum { get; set; }
+    
 
     }
 }

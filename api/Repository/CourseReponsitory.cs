@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Dtos.Course;
+using api.Dtos.Courses;
 using api.Interfaces;
 using IeltsWebLearn.Data;
 using IeltsWebLearn.Models;
@@ -64,7 +64,9 @@ namespace api.Respository
             existingCourse.courseName= courseDto.courseName;
             existingCourse.price = courseDto.price;
             existingCourse.courseDescription=courseDto.courseDescription;
-            existingCourse.courseIMG=courseDto.courseIMG;
+            existingCourse.courseSignUp=courseDto.courseSignUp;
+            existingCourse.startTime=courseDto.startTime;
+            existingCourse.endTime=courseDto.endTime;
             
             await _context.SaveChangesAsync();
 
