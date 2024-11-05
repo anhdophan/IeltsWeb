@@ -13,6 +13,6 @@ namespace api.Models
         public string Url { get; set; }
 
         // Navigation properties
-        public Course? Course { get; set; }
+        
     }
 }

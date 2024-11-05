@@ -11,8 +11,8 @@ namespace api.Models
         public int Id { get; set; }
         public DateTime ngayHoc { get; set; } =  DateTime.Now;
         public string Content { get; set; } = string.Empty;
-        public List<ImgLinkCourseCurr> IdIMGlink { get; set; }
-        public List<VideoLinkCourseCurr> IdlinkVideo { get; set; }
+        public List<ImgLinkCourseCurr> IdIMGlink { get; set; } = new List<ImgLinkCourseCurr>();
+        public List<VideoLinkCourseCurr> IdlinkVideo { get; set; } = new List<VideoLinkCourseCurr>();
         public string? LinkQuiz { get; set; }
         public int? IDCourse { get; set; }
 

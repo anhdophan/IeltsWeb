@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Dtos.Course;
+using api.Dtos.Courses;
 using api.Interfaces;
 using api.Mappers;
 using IeltsWebLearn.Data;

@@ -27,12 +27,13 @@ namespace api.Models
      public string SDT { get; set; }
      [Range(0, 10, ErrorMessage = "Điểm phải từ 0 đến 10")]
      public double Score { get; set; }
-     public int IdCourse { get; set; }
+     public int? IdCourse { get; set; }
 
-     public Course course {get;set;}
+     public Course? course {get;set;}
 
      [Required(ErrorMessage = "Mã lớp bắt buộc")]
-     public int IdClass { get; set; }
+     public int? IdClass { get; set; }
+     public Class? Class {get;set;}
 
      [Required(ErrorMessage = "Bắt buộc")]
     

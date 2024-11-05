@@ -4,6 +4,7 @@ using IeltsWebLearn.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241105030542_updatedb2")]
+    partial class updatedb2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -312,6 +315,9 @@ namespace api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CourseCurriculumId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("DOC")
                         .HasColumnType("int");
 
@@ -326,6 +332,8 @@ namespace api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CourseCurriculumId");
 
                     b.HasIndex("DayOfCourseCurriculumId");
 
@@ -478,6 +486,9 @@ namespace api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CourseCurriculumId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("DayOfCourseCurriculumId")
                         .HasColumnType("int");
 
@@ -489,6 +500,8 @@ namespace api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CourseCurriculumId");
 
                     b.HasIndex("DayOfCourseCurriculumId");
 
@@ -560,16 +573,26 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.ImgLinkCourse", b =>
                 {
-                    b.HasOne("IeltsWebLearn.Models.Course", null)
+                    b.HasOne("IeltsWebLearn.Models.Course", "Course")
                         .WithMany("courseIMGMore")
                         .HasForeignKey("CourseId");
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("api.Models.ImgLinkCourseCurr", b =>
                 {
-                    b.HasOne("api.Models.DayOfCourseCurriculum", null)
+                    b.HasOne("api.Models.CourseCurriculum", "CourseCurriculum")
+                        .WithMany()
+                        .HasForeignKey("CourseCurriculumId");
+
+                    b.HasOne("api.Models.DayOfCourseCurriculum", "DayOfCourseCurriculum")
                         .WithMany("IdIMGlink")
                         .HasForeignKey("DayOfCourseCurriculumId");
+
+                    b.Navigation("CourseCurriculum");
+
+                    b.Navigation("DayOfCourseCurriculum");
                 });
 
             modelBuilder.Entity("api.Models.SignUpInfor", b =>
@@ -613,16 +636,24 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.VideoLinkCourse", b =>
                 {
-                    b.HasOne("IeltsWebLearn.Models.Course", null)
+                    b.HasOne("IeltsWebLearn.Models.Course", "Course")
                         .WithMany("videoLinkCourses")
                         .HasForeignKey("CourseId");
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("api.Models.VideoLinkCourseCurr", b =>
                 {
+                    b.HasOne("api.Models.CourseCurriculum", "CourseCurriculum")
+                        .WithMany()
+                        .HasForeignKey("CourseCurriculumId");
+
                     b.HasOne("api.Models.DayOfCourseCurriculum", null)
                         .WithMany("IdlinkVideo")
                         .HasForeignKey("DayOfCourseCurriculumId");
+
+                    b.Navigation("CourseCurriculum");
                 });
 
             modelBuilder.Entity("IeltsWebLearn.Models.Course", b =>
