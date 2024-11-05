@@ -6389,24 +6389,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mazuo\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\nghia\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ieltsWeb\\api\\api.csproj",
+      "projectUniqueName": "C:\\Users\\nghia\\IeltsWeb\\api\\api.csproj",
       "projectName": "api",
-      "projectPath": "E:\\ieltsWeb\\api\\api.csproj",
-      "packagesPath": "C:\\Users\\mazuo\\.nuget\\packages\\",
-      "outputPath": "E:\\ieltsWeb\\api\\obj\\",
+      "projectPath": "C:\\Users\\nghia\\IeltsWeb\\api\\api.csproj",
+      "packagesPath": "C:\\Users\\nghia\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nghia\\IeltsWeb\\api\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\mazuo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\nghia\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6506,7 +6501,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

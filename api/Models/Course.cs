@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using api.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IeltsWebLearn.Models
 {
@@ -21,5 +22,7 @@ namespace IeltsWebLearn.Models
         public string courseDescription { get; set; } = string.Empty;
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
+
+        public List<TeacherCourse> TeacherCourses { get; set; }= new List<TeacherCourse>(); 
     }
 }
