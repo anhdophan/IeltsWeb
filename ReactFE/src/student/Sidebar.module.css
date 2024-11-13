@@ -1,0 +1,67 @@
+.sidebar {
+  height: 110px;
+  min-height: 100px;
+  width: 100%;
+  border-bottom: 2px solid rgba(239, 24, 13, 0.983);
+  border-top: 2px solid rgb(247, 16, 4);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 100px;
+  position: absolute;
+ 
+  
+   /* Ngăn không cho các mục xuống dòng */
+}
+
+.sidebar-nav {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 80px;
+  
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap; /* Ngăn không cho các mục xuống dòng */
+  flex-shrink: 0;
+  margin-right: 80px;
+  
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  white-space: nowrap;
+}
+
+.sidebar-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 5px;
+  flex-shrink: 0;
+}
+
+.sidebar-label {
+  font-size: 1.55rem;
+  font-family: 'Poppins';
+  white-space: nowrap;
+  font-size: 20px;
+}
+
+.sidebar-footer {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px;
+  flex-shrink: 0;
+}
