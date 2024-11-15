@@ -9,10 +9,11 @@ namespace api.Models
     public class CourseCurriculum
     {
         public int Id { get; set; }
-        public int IdCourse { get; set; }
-        public int? IdDOC { get; set; }
+        
+
         public List<DayOfCourseCurriculum> dayOfCourseCurricula {get;set;} = new List<DayOfCourseCurriculum>();
         // Navigation properties
+        public int IdCourse { get; set; }
         public Course? Course { get; set; }
     }
 }

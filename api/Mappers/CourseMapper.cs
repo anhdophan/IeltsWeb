@@ -19,7 +19,6 @@ namespace api.Mappers
                 courseSignUp = courseModel.courseSignUp,
                 startTime = courseModel.startTime,
                 endTime = courseModel.endTime,
-                IdClass = courseModel.IdClass,
                 Comments = courseModel.Comments.Select(c=>c.ToCommentDto()).ToList(),
 
             };

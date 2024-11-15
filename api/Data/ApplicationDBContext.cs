@@ -22,11 +22,13 @@ namespace IeltsWebLearn.Data
         public DbSet<SignUpInfor> SignUpInfors {get;set;}
         public DbSet<Student> Student {get;set;}
         public DbSet<EmailLog> EmailLogs {get;set;}
-        public DbSet<HocVien> HocViens { get; set; }
         public DbSet<TaiKhoanHV> TaiKhoanHVs { get; set; }
         public DbSet<ImgLinkCourse> ImgLinkCourses { get; set; }
         public DbSet<ImgLinkCourseCurr> ImgLinkCourseCurrs { get; set; }
         public DbSet<VideoLinkCourse> VideoLinkCourses { get; set; }
         public DbSet<VideoLinkCourseCurr> VideoLinkCourseCurrs { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<TeacherAccount> TeacherAccounts { get; set; }
+
     }
 }

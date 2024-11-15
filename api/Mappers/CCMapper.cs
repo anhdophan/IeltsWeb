@@ -14,7 +14,6 @@ namespace api.Mappers
             return new CCDto {
                 Id = courseCCModel.Id,
                 IdCourse = courseCCModel.IdCourse,
-                IdDOC = courseCCModel.IdDOC,
                
             };
         }
@@ -22,7 +21,6 @@ namespace api.Mappers
         public static CourseCurriculum ToCourseCCFromCreateDTO(this CreateCCRequestDto courseCCDto){
             return new CourseCurriculum{
                 IdCourse = courseCCDto.IdCourse,
-                IdDOC = courseCCDto.IdDOC,
             };
         }
     }

@@ -14,10 +14,14 @@ namespace api.Models
         public List<ImgLinkCourseCurr> IdIMGlink { get; set; } = new List<ImgLinkCourseCurr>();
         public List<VideoLinkCourseCurr> IdlinkVideo { get; set; } = new List<VideoLinkCourseCurr>();
         public string? LinkQuiz { get; set; }
-        public int? IDCourse { get; set; }
+       
 
         // Navigation properties
-        public CourseCurriculum? CourseCurriculum { get; set; }
+         public int? IDClass { get; set; }
+        public Class? Class { get; set; }
+        public int? IDCourse { get; set; }
         public Course? Course { get; set; }
+        public int? IDCourseCC { get; set; }
+        public CourseCurriculum? CourseCurriculum { get; set; }
     }
 }

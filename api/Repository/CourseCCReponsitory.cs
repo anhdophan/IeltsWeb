@@ -62,7 +62,6 @@ namespace api.Repository
             }
 
             existingCourseCC.IdCourse= courseCCDto.IdCourse;
-            existingCourseCC.IdDOC = courseCCDto.IdDOC;     
             await _context.SaveChangesAsync();
 
             return existingCourseCC; 
