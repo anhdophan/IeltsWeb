@@ -4,9 +4,9 @@ import Sidebar from './Sidebar';
 import MainContent from './MainContent';
 //import Footer from '../components/Main Page/Footer';
 import Footer from 'D:/IeltsWeb/ReactFE/src/coursedetails/Footer.jsx';
-import styles from './Dashboard.module.css';
+import styles from './TeacherDashboard.module.css';
 
-const Dashboard = () => {
+const TeacherDashboard = () => {
   return (
     <div>
     <Header />
@@ -23,4 +23,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default TeacherDashboard;

@@ -1,3 +1,111 @@
+import React, { useEffect, useState } from 'react';
+import { Container, Typography, Box, CircularProgress } from '@mui/material';
+import RegistrationForm from './RegistrationForm';
+import Header from '../components/Main Page/Header';
+import ImageComponent from './ImageComponent';
+import TeacherFeatures from './TeacherFeatures';
+import Footer from './Footer';
+import CourseList from 'D:/IeltsWeb/ReactFE/src/components/CourseList.jsx';
+
+function TeacherSection() {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch('https://ieltsweb.onrender.com/api/Course', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setCourses(data); // Set the courses data
+      } else {
+        console.error('Error fetching courses:', response.statusText);
+        setError('Lỗi khi tải dữ liệu!');
+      }
+    } catch (error) {
+      console.error('Lỗi kết nối:', error);
+      setError('Lỗi khi tải dữ liệu!');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box
+        className="center-content"
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <CircularProgress />
+        <Typography variant="h6" sx={{ ml: 2 }}>
+          Đang tải dữ liệu...
+        </Typography>
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box
+        className="center-content"
+        sx={{
+          textAlign: 'center',
+          height: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant="h6" color="error">
+          {error}
+        </Typography>
+      </Box>
+    );
+  }
+
+  return (
+    <section className="teacher-section">
+      <div className="teacher-gallery">
+        <Header />
+        <ImageComponent />
+      </div>
+      <TeacherFeatures />
+      <RegistrationForm />
+      <main>
+        <CourseList data={courses} />
+      </main>
+      <Footer />
+      <style jsx>{`
+      .teacher-section {
+  max-width: 1200px;
+  margin-top:500px;
+  padding: 2rem;
+
+}
+
+.section-title {
+  font-size: 2rem;
+  text-align: center;
+  color: #05224a;
+  margin-bottom: 2rem;
+}
+
+
 .registration-section {
     background-color: #05378e; /* Nền sáng cho phần đăng ký */
     padding: 40px; /* Khoảng cách bên trong */
@@ -29,6 +137,7 @@
   
   .form-group {
     margin-bottom: 15px; /* Khoảng cách giữa các nhóm biểu mẫu */
+    margin-left: 356px;
   }
   
   .form-group label {
@@ -128,3 +237,51 @@
     margin-top: 5px; /* Khoảng cách trên cho nhãn */
   }
   
+.timer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time {
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #003066;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.unit {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin-left: 500px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+  `}</style>
+    </section>
+  );
+}
+
+export default TeacherSection;
+
+
+

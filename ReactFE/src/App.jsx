@@ -17,7 +17,7 @@ import ChooseUs from './components/Main Page/ChooseUs';
 import LearningPath from './components/Main Page/LearningPath';
 import TeacherSection from './components/Main Page/TeacherSection';
 import RegistrationForm from './components/Main Page/RegistrationForm';
-import Footer from './components/Main Page/Footer';
+import Footer from 'D:/IeltsWeb/ReactFE/src/coursedetails/Footer.jsx';
 import CourseList from './components/CourseList';
 import CustomerChatPopup from './components/CustomerChatPopup';
 
@@ -49,7 +49,7 @@ function App() {
     } finally {
         setLoading(false);
     }
-};
+  };
 
 
   useEffect(() => {

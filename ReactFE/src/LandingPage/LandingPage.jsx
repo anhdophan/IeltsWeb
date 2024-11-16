@@ -1,4 +1,138 @@
-.registration-section {
+import React from 'react';
+import RegistrationForm from 'D:/IeltsWeb/ReactFE/src/teacherSection/RegistrationForm';
+import Footer from 'D:/IeltsWeb/ReactFE/src/coursedetails/Footer.jsx';
+import Header from '../components/Main Page/Header';
+import ImageOverlay from './ImageOverlay';
+import CourseDetails from './CourseDetails';
+import CourseImage from './CourseImage';
+import CoursePromotion from './CoursePromotion';
+
+
+
+
+const LandingPage = () => {
+  return (
+    <div className="landing-page">
+      <Header />
+
+      <main>
+        <ImageOverlay/>
+        <CourseImage/>
+        <CourseDetails/>
+        <CoursePromotion/>
+        <RegistrationForm />
+        <Footer/>
+      </main>
+      
+      <style jsx>{`
+      .coursePromotion {
+    display: flex;
+    gap: 20px;
+  }
+  
+  @media (max-width: 991px) {
+    .coursePromotion {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+  }
+  
+  .imageWrapper {
+    width: 57%;
+  }
+  
+  @media (max-width: 991px) {
+    .imageWrapper {
+      width: 100%;
+    }
+  }
+  
+  .courseImage {
+    aspect-ratio: 1.44;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    z-index: 10;
+    flex-grow: 1;
+    margin: 21px -21px 0 0;
+  }
+  
+  @media (max-width: 991px) {
+    .courseImage {
+      max-width: 100%;
+    }
+  }
+  
+  .detailsWrapper {
+    width: 43%;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    color: #010101;
+    font: 700 18px Roboto, sans-serif;
+  }
+  
+  @media (max-width: 991px) {
+    .detailsWrapper {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+  
+  .courseTitle {
+    font-size: 45px;
+    line-height: 54px;
+    min-height: 163px;
+    padding-right: 6px;
+  }
+  
+  @media (max-width: 991px) {
+    .courseTitle {
+      font-size: 40px;
+      line-height: 53px;
+      margin-right: 6px;
+    }
+  }
+  
+  .separator {
+    border-top: 5px solid #f44336;
+    width: 107px;
+    height: 5px;
+    margin-top: 10px;
+  }
+  
+  .courseDescription {
+    margin-top: 37px;
+    min-height: 58px;
+    line-height: 28.8px;
+  }
+  
+  .ctaButton {
+    border-radius: 7px;
+    background-color: #f44437;
+    color: #fff;
+    text-align: center;
+    line-height: 21.6px;
+    padding: 12px 57px 14px;
+    font-family: "Open Sans", sans-serif;
+    border: none;
+    cursor: pointer;
+    margin-top: 41px;
+    width: 318px;
+    max-width: 100%;
+    height: 48px;
+    box-shadow: 13px 13px 13px 0px rgba(244, 67, 54, 0.3);
+  }
+  
+  @media (max-width: 991px) {
+    .ctaButton {
+      margin-top: 40px;
+      padding: 12px 20px;
+    }
+  }
+      
+      .registration-section {
     background-color: #05378e; /* Nền sáng cho phần đăng ký */
     padding: 40px; /* Khoảng cách bên trong */
     border-radius: 8px; /* Bo tròn các góc */
@@ -29,6 +163,7 @@
   
   .form-group {
     margin-bottom: 15px; /* Khoảng cách giữa các nhóm biểu mẫu */
+    margin-left: 510px;
   }
   
   .form-group label {
@@ -126,5 +261,11 @@
     color: whitesmoke; /* Màu chữ cho nhãn countdown */
     display: block; /* Hiển thị nhãn dưới dạng khối */
     margin-top: 5px; /* Khoảng cách trên cho nhãn */
-  }
   
+  }
+     `}</style>
+    </div>
+  );
+};
+
+export default LandingPage;

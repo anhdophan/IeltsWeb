@@ -14,6 +14,12 @@ import AdminDashboard from "./AdminDashboard";
 import Dashboard from "./student/Dashboard";
 import AdminChat from "./components/AdminChat";
 import CourseDetails from "./coursedetails/CourseDetails"
+import IntroductionSection from 'D:/IeltsWeb/ReactFE/src/L&TIntroduce/IntroductionSection.jsx';
+import IELTSResults from "./studentSection/IeltsResults";
+import TeacherSection from "./teacherSection/TeacherSection";
+import CourseDetailsTeacher from "./courseDetailsTeacher/CourseDetailsTeacher";
+import TeacherDashboard from "./teacherDashboard/TeacherDashboard";
+import LandingPage from "./LandingPage/LandingPage";
 
 
 
@@ -55,6 +61,32 @@ const router = createBrowserRouter([
     path: "/CourseDetails",
     element: <CourseDetails/>,
   },
+  {
+    path: "/Introduce",
+    element: <IntroductionSection/>,
+  },
+  {
+    path: "/StudentSection",
+    element: <IELTSResults/>,
+  },
+  {
+    path: "/TeacherSection",
+    element: <TeacherSection/>,
+  },
+  {
+    path: "/CourseDetailsTeacher",
+    element: <CourseDetailsTeacher/>,
+  },
+  {
+    path: "/TeacherDashboard",
+    element: <TeacherDashboard/>,
+  },
+  {
+    path: "/LandingPage",
+    element: <LandingPage/>,
+  },
+  
+  
   
   
 ]);

@@ -1,0 +1,44 @@
+.aboutSection {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .aboutHeader {
+    display: flex;
+    width: 150%;
+    max-width: 850px;
+    gap: 50px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .aboutTitle {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 27.2px;
+    color: #000;
+    padding: 10px;
+  }
+  
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  @media (max-width: 991px) {
+    .aboutSection {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 40px;
+    }
+  
+    .aboutHeader {
+      max-width: 100%;
+    }
+  
+    .cardContainer {
+      flex-direction: column;
+    }
+  }
