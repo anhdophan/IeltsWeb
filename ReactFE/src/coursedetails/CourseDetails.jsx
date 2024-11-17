@@ -1,16 +1,18 @@
 import React from 'react';
 import Header from './Header';
-import Sidebar from './Sidebar';
 import CourseContent from './CourseContent';
 import Footer from './Footer';
-import './CourseDetails.css';
+import HeaderSidebar from './HeaderSidebar';
+import NavItem from './NavItem';
+import ProfileIcon from './ProfileIcon';
+//import './CourseDetails.css';
 
 const CourseDetails = () => {
   return (
     <div className="course-details">
-      <Header />
+      <Header/>
       <main className="course-main">
-        <Sidebar />
+      <HeaderSidebar/>
         <CourseContent />
       </main>
       <Footer />

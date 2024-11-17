@@ -12,7 +12,9 @@
   }
   
   .imageWrapper {
-    width: 57%;
+    width: 37%;
+    margin-top: -700px;
+    margin-left: -500px;
   }
   
   @media (max-width: 991px) {
@@ -39,11 +41,13 @@
   
   .detailsWrapper {
     width: 43%;
-    margin-left: 20px;
+    margin-right: -550px;
+    margin-top: -350px;
     display: flex;
     flex-direction: column;
     color: #010101;
     font: 700 18px Roboto, sans-serif;
+    margin-bottom: 50px;
   }
   
   @media (max-width: 991px) {

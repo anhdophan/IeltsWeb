@@ -10,6 +10,7 @@ const ImageOverlay = () => {
         .image-overlay {
           display: flex;
           flex-direction: column;
+          margin-bottom: 200px;
         }
         .overlay-content {
           background: var(--color-red-5010, rgba(255, 1, 1, 0.1));
@@ -24,8 +25,8 @@ const ImageOverlay = () => {
         .image-container {
           display: flex;
           margin-bottom: -30px;
-          width: 1136px;
-          max-width: 100%;
+          width: 1290px;
+          max-width: 120%;
           height: 302px;
           
         }

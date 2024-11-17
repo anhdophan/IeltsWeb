@@ -1,11 +1,17 @@
 import React from 'react';
 import RegistrationForm from 'D:/IeltsWeb/ReactFE/src/teacherSection/RegistrationForm';
+//import RegistrationForm from './RegistrationForm';
 import Footer from 'D:/IeltsWeb/ReactFE/src/coursedetails/Footer.jsx';
 import Header from '../components/Main Page/Header';
 import ImageOverlay from './ImageOverlay';
 import CourseDetails from './CourseDetails';
 import CourseImage from './CourseImage';
 import CoursePromotion from './CoursePromotion';
+import ChallengeItem from './ChallengeItem';
+import FeatureColumn from './FeatureColumn';
+import FeatureItem from './FeatureItem';
+import IeltsLandingPage from './IeltsLandingPage';
+import ImageColumn from './ImageColumn';
 
 
 
@@ -20,6 +26,11 @@ const LandingPage = () => {
         <CourseImage/>
         <CourseDetails/>
         <CoursePromotion/>
+        <FeatureColumn/>
+        <FeatureItem/>
+        <ImageColumn/>
+        <IeltsLandingPage/>
+        
         <RegistrationForm />
         <Footer/>
       </main>
@@ -139,7 +150,7 @@ const LandingPage = () => {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
     width: 100%; /* Chiều ngang bằng 100% */
     max-width: 100vw; /* Đảm bảo không vượt quá chiều rộng viewport */
-    margin: 0; /* Loại bỏ margin nếu có */
+    margin-top: 150px; /* Loại bỏ margin nếu có */
   }
   
   .section-title {
@@ -261,8 +272,154 @@ const LandingPage = () => {
     color: whitesmoke; /* Màu chữ cho nhãn countdown */
     display: block; /* Hiển thị nhãn dưới dạng khối */
     margin-top: 5px; /* Khoảng cách trên cho nhãn */
+  .feature-column {
+          width: 57%;
+        }
+        .main-title {
+          font: 700 37px/37px var(--font-family-Font-1, "Open Sans");
+          min-height: 111px;
+        }
+        .feature-list {
+          display: flex;
+          margin-top: 53px;
+          gap: 25px;
+          flex-wrap: wrap;
+        }
+        .challenge-list {
+          display: flex;
+          margin-top: 35px;
+          gap: 24px;
+          flex-wrap: wrap;
+        }
+        .description-list {
+          display: flex;
+          margin-top: 7px;
+          width: 100%;
+          gap: 20px;
+          flex-wrap: wrap;
+        }
+        .description {
+          flex: 1;
+          min-height: 60px;
+          padding-bottom: 1px;
+          font: 400 14px/19.6px var(--font-family-Font-7, Montserrat);
+        }
+        @media (max-width: 991px) {
+          .feature-column {
+            width: 100%;
+            max-width: 100%;
+            margin-right: -6px;
+          }
+          .main-title {
+            max-width: 100%;
+          }
+          .feature-list {
+            max-width: 100%;
+            margin-top: 40px;
+          }
+          .challenge-list {
+            max-width: 100%;
+            margin-right: 10px;
+          }
+          .description-list {
+            max-width: 100%;
+            margin-right: 6px;
+          }
+        }
+          .feature-item {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          flex-grow: 1;
+          flex-basis: 0;
+          width: fit-content;
+        }
+        .feature-title {
+          text-transform: uppercase;
+          font: 700 16px/19.2px var(--font-family-Font-1, "Open Sans");
+          height: 20px;
+          padding-bottom: 1px;
+        }
+        .feature-description {
+          margin-top: 6px;
+          height: 40px;
+          padding-bottom: 1px;
+          font: 400 14px/19.6px var(--font-family-Font-7, Montserrat);
+        }
+          .ielts-landing {
+  color: #444442;
+  font-family: Arial, sans-serif;
   
+}
+
+.content-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.features-wrapper {
+  flex: 1;
+}
+
+.main-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.feature-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.feature-description {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+}
+
+.image-column {
+  width: 40%;
+}
+
+.feature-image {
+  width: 10%;
+  object-fit: contain;
+}
+
+@media (max-width: 991px) {
+  .content-wrapper {
+    flex-direction: column;
   }
+
+  .image-column {
+    width: 100%;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
      `}</style>
     </div>
   );
