@@ -1,13 +1,25 @@
-# Use the official .NET SDK image to build the project
+# Stage 1: Build the project
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /app
-COPY ["api.csproj", "./api"]
-RUN dotnet restore "./api.csproj"
-COPY . .
-RUN dotnet publish -c Release -o /app
+WORKDIR /src
 
-# Build a runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
+# Copy project files
+COPY ["api/api.csproj", "./"]
+
+# Restore dependencies
+RUN dotnet restore "./api.csproj"
+
+# Copy the remaining source code
+COPY . .
+
+# Build and publish the app
+RUN dotnet publish "./api.csproj" -c Release -o /app/publish
+
+# Stage 2: Create runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
 WORKDIR /app
-COPY --from=build /app .
+
+# Copy published app from build stage
+COPY --from=build /app/publish .
+
+# Set the entry point
 ENTRYPOINT ["dotnet", "api.dll"]
