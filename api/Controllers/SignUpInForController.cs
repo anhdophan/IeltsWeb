@@ -7,6 +7,7 @@ using api.Interfaces;
 using api.Mappers;
 using IeltsWebLearn.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
@@ -49,14 +50,31 @@ namespace api.Controllers
         //dùng FromBody bởi vì dữ liệu được truyền vào từ phần body của http 
         //gửi request tới Dto để hạn chế lượng thông tin mà người dùng gửi tới
        [HttpPost("{courseId}")]
-       public async Task<IActionResult> Create([FromRoute] int courseId,[FromBody] CreateSignUpInforRequestDto signupDto){
-          if(!await _courseRepo.CourseExists(courseId)){
+        public async Task<IActionResult> Create([FromRoute] int courseId, [FromBody] CreateSignUpInforRequestDto signupDto)
+        {
+            // Check if the course exists
+            if (!await _courseRepo.CourseExists(courseId))
+            {
                 return BadRequest("Course Không Tồn Tại");
             }
+
+            // Convert the CreateSignUpInforRequestDto to the model and set the courseId
             var signupModel = signupDto.ToSignUpInforFromCreateDTO(courseId);
+
+            // Create the SignUpInfor entry in the database
             await _signupinforRepon.CreateAsync(signupModel);
-            return CreatedAtAction(nameof(GetById),new {id=signupModel},signupModel.ToSignUpInforDto());
-       }
+
+            // Fetch the course and increment the courseSignUp field
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.Id == courseId);
+            if (course != null)
+            {
+                course.courseSignUp += 1;  // Increment courseSignUp
+                await _context.SaveChangesAsync();  // Save the updated course
+            }
+
+            // Return the created resource with status 201
+            return CreatedAtAction(nameof(GetById), new { id = signupModel.Id }, signupModel.ToSignUpInforDto());
+        }
 
     
        [HttpDelete]
