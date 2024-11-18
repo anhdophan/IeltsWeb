@@ -24,6 +24,7 @@ namespace api.Models
         [Required(ErrorMessage = "Ngày tạo không được để trống")]
         [DataType(DataType.DateTime)]
         public DateTime creatOn { get; set; } = DateTime.Now;
+        public bool status;
         public int CourseId { get; set; }
         // Thuộc tính điều hướng dùng để truy cập sâu vào Course, ví dụ Course.Id
         public Course? Course { get; set; }

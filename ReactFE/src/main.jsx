@@ -7,11 +7,11 @@ import {
 } from "react-router-dom";
 import "./index.css"; // Nhập file CSS để áp dụng kiểu cho ứng dụng
 import App from "./App"; // Nhập component App
-import CourseDetail from "./pages/CourseDetail"; // Nhập component CourseDetail
+
 import CourseCreate from "./pages/CourseCreate";
 import CourseRegistrationPopup from "./components/CourseRegistrationPopup";
 import Dashboard from "./student/Dashboard";
-import AdminChat from "./components/AdminChat";
+
 import CourseDetails from "./coursedetails/CourseDetails"
 import IntroductionSection from "./L&TIntroduce/IntroductionSection";
 import IELTSResults from "./studentSection/IeltsResults";
@@ -30,10 +30,7 @@ const router = createBrowserRouter([
     path: "/Course", //  trang danh sách khóa học
     element: <App />, 
   },
-  {
-    path: "/Course/:id", // Trang chi tiết khóa học
-    element: <CourseDetail />, // Hiển thị CourseDetail cho khóa học có id tương ứng
-  },
+ 
   {
     path: "/CourseCreate", // Trang tạo khóa học
     element: <CourseCreate />, // Hiển thị trang CourseCreate
