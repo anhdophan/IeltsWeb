@@ -72,9 +72,14 @@ namespace api.Controllers
                 await _context.SaveChangesAsync();  // Save the updated course
             }
 
+            // Update the status to false after creating the sign-up
+            signupModel.status = false;
+            await _signupinforRepon.UpdateAsync(signupModel); // Assuming there is an update method to save the change
+
             // Return the created resource with status 201
             return CreatedAtAction(nameof(GetById), new { id = signupModel.Id }, signupModel.ToSignUpInforDto());
         }
+
 
     
        [HttpDelete]

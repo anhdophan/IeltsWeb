@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dtos.SignUpInfor;
 using api.Interfaces;
 using api.Models;
 using IeltsWebLearn.Data;
@@ -35,6 +36,7 @@ namespace api.Repository
         public async Task<SignUpInfor> CreateAsync(SignUpInfor signUpInforModel)
         {
             await _context.SignUpInfors.AddAsync(signUpInforModel);
+            signUpInforModel.status = false;
             await _context.SaveChangesAsync();
             return signUpInforModel;
         }
@@ -50,6 +52,20 @@ namespace api.Repository
 
             await _context.SaveChangesAsync();
             return signUpInforModel;
+        }
+
+        public async Task<SignUpInfor?> UpdateAsync(int id, UpdateSignupRequestDto signupRequestDtoDto)
+        {
+            var existingSignup = await _context.SignUpInfors.FirstOrDefaultAsync(x=>x.Id==id);
+
+            if(existingSignup == null){
+                return null;
+            }
+
+            existingSignup.status= signupRequestDtoDto.status;
+            await _context.SaveChangesAsync();
+
+            return existingSignup; 
         }
 
     }
