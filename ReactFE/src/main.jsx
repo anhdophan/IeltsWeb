@@ -8,7 +8,6 @@ import {
 import "./index.css"; // Nhập file CSS để áp dụng kiểu cho ứng dụng
 import App from "./App"; // Nhập component App
 
-import CourseCreate from "./pages/CourseCreate";
 import CourseRegistrationPopup from "./components/CourseRegistrationPopup";
 import Dashboard from "./student/Dashboard";
 
@@ -31,10 +30,6 @@ const router = createBrowserRouter([
     element: <App />, 
   },
  
-  {
-    path: "/CourseCreate", // Trang tạo khóa học
-    element: <CourseCreate />, // Hiển thị trang CourseCreate
-  },
   {
     path: "/SignUp/:id", // Trang tạo khóa học
     element: <CourseRegistrationPopup />, // Hiển thị trang CourseCreate

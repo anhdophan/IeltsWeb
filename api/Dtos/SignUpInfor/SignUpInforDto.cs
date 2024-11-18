@@ -10,6 +10,7 @@ namespace api.Dtos.SignUpInfor
          public int Id { get; set; }
         public string nameSt { get; set; } = string.Empty;
         public string emailSt { get; set; } = string.Empty;
+        public bool status;
 
         public string phoneSt { get; set; } = string.Empty;
         public DateTime creatOn { get; set; } = DateTime.Now;

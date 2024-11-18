@@ -36,7 +36,7 @@ namespace api.Repository
         public async Task<SignUpInfor> CreateAsync(SignUpInfor signUpInforModel)
         {
             await _context.SignUpInfors.AddAsync(signUpInforModel);
-            signUpInforModel.status = false;
+            signUpInforModel.status = false ;
             await _context.SaveChangesAsync();
             return signUpInforModel;
         }
@@ -56,13 +56,15 @@ namespace api.Repository
 
         public async Task<SignUpInfor?> UpdateAsync(int id, UpdateSignupRequestDto signupRequestDtoDto)
         {
-            var existingSignup = await _context.SignUpInfors.FirstOrDefaultAsync(x=>x.Id==id);
+            var existingSignup = await _context.SignUpInfors.FirstOrDefaultAsync(x => x.Id == id);
 
-            if(existingSignup == null){
+            if (existingSignup == null)
+            {
                 return null;
             }
 
-            existingSignup.status= signupRequestDtoDto.status;
+            // Override the status to true
+            existingSignup.status = true; 
             await _context.SaveChangesAsync();
 
             return existingSignup; 

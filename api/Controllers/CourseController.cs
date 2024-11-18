@@ -50,12 +50,36 @@ namespace api.Controllers
         }
         //dùng FromBody bởi vì dữ liệu được truyền vào từ phần body của http 
         //gửi request tới Dto để hạn chế lượng thông tin mà người dùng gửi tới
+
        [HttpPost]
-       public async Task<IActionResult> Create([FromBody] CreateCourseRequestDto courseDto){
-            var courseModel = courseDto.ToCourseFromCreateDTO();
+        public async Task<IActionResult> Create([FromForm] CreateCourseRequestDto courseDto, [FromServices] CloudinaryService cloudinaryService)
+        {
+            var imageUrls = new List<string>();
+            var videoUrls = new List<string>();
+
+            // Upload images
+            foreach (var image in courseDto.Images)
+            {
+                var imageUrl = await cloudinaryService.UploadImageAsync(image);
+                imageUrls.Add(imageUrl);
+            }
+
+            // Upload videos
+            foreach (var video in courseDto.Videos)
+            {
+                var videoUrl = await cloudinaryService.UploadVideoAsync(video);
+                videoUrls.Add(videoUrl);
+            }
+
+            // Map DTO to model
+            var courseModel = courseDto.ToCourseFromCreateDTO(imageUrls, videoUrls);
+
             await _courseRepon.CreateAsync(courseModel);
-            return CreatedAtAction(nameof(GetById),new {id=courseModel.Id},courseModel.ToCourseDto());
-       }
+
+            return CreatedAtAction(nameof(GetById), new { id = courseModel.Id }, courseModel.ToCourseDto());
+        }
+
+
 
        [HttpPut]
        [Route("{Id}")]

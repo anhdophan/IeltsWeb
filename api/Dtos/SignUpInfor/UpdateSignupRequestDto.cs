@@ -9,6 +9,6 @@ namespace api.Dtos.SignUpInfor
 {
     public class UpdateSignupRequestDto
     {
-        public bool status;
+        public bool status ;
     }
 }

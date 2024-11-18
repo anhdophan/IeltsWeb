@@ -36,7 +36,16 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
+//Cloudinary api
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var config = builder.Configuration.GetSection("Cloudinary");
+    return new CloudinaryService(
+        config["df8kdfa66"], 
+        config["424688741667112"], 
+        config["UWWFkTfsd2QE1eaED8PpMFUii1s"]
+    );
+});
 // Đăng ký SignalR service
 builder.Services.AddSignalR();  // Thêm dòng này để đăng ký SignalR
 

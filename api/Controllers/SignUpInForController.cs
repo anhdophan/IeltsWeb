@@ -76,6 +76,17 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = signupModel.Id }, signupModel.ToSignUpInforDto());
         }
 
+        [HttpPut]
+        [Route("{Id}")]
+        public async Task<IActionResult> Update([FromRoute] int Id,[FromBody] UpdateSignupRequestDto updateDto){
+                var courseModel = await _signupinforRepon.UpdateAsync(Id,updateDto);
+                if(courseModel == null){
+                    return NotFound();
+                }
+
+                return Ok(courseModel.ToSignUpInforDto());
+        }
+
     
        [HttpDelete]
        [Route("{Id}")]

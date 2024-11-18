@@ -18,6 +18,7 @@ namespace api.Mappers
                 Id = signUpInforModel.Id,
                 nameSt = signUpInforModel.nameSt,
                 emailSt = signUpInforModel.emailSt,
+                status = signUpInforModel.status,
                 phoneSt = signUpInforModel.phoneSt,
                 creatOn = signUpInforModel.creatOn,
                 CourseId = signUpInforModel.CourseId
@@ -28,6 +29,7 @@ namespace api.Mappers
             return new SignUpInfor{
                 nameSt = signupDto.nameSt,
                 emailSt = signupDto.emailSt,
+                status = signupDto.status,
                 phoneSt = signupDto.phoneSt,
                 CourseId = courseId
             };

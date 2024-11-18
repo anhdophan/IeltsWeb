@@ -8,6 +8,8 @@ import SunIcon from "./assets/icons/sun.svg";
 import BaseLayout from "./layout/BaseLayout";
 import { Dashboard, PageNotFound } from "./screens";
 import CourseDetail from "./components/course/CourseDetail";
+import CourseTable from "./components/course/CourseTable";
+import CourseCreate from "./components/course/CourseCreate";
 
 function App() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -28,6 +30,8 @@ function App() {
           <Route element={<BaseLayout />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/course/:id" element={<CourseDetail />} />
+            <Route path="/course" element={<CourseTable />} />
+            <Route path="/course/create" element={<CourseCreate />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

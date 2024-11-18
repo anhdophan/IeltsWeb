@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Dtos.Courses;
+using api.Models;
 using IeltsWebLearn.Models;
 
 namespace api.Mappers
@@ -24,14 +25,20 @@ namespace api.Mappers
             };
         }
 
-        public static Course ToCourseFromCreateDTO(this CreateCourseRequestDto courseDto){
-            return new Course{
+        public static Course ToCourseFromCreateDTO(this CreateCourseRequestDto courseDto, List<string> imageUrls, List<string> videoUrls)
+        {
+            return new Course
+            {
                 courseName = courseDto.courseName,
                 price = courseDto.price,
                 courseIMG = courseDto.courseIMG,
-                courseDescription = courseDto.courseDescription,                startTime = courseDto.startTime,
+                courseDescription = courseDto.courseDescription,
+                startTime = courseDto.startTime,
                 endTime = courseDto.endTime,
+                courseIMGMore = imageUrls.Select(url => new ImgLinkCourse { Url = url }).ToList(),
+                videoLinkCourses = videoUrls.Select(url => new VideoLinkCourse { Url = url }).ToList()
             };
         }
+
     }
 }
