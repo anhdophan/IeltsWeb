@@ -45,12 +45,25 @@ namespace api.Respository
 
         public async  Task<List<Course>> GetAllAsync()
         {
-            return await _context.Courses.Include(c=>c.Comments).ToListAsync();
+            return await _context.Courses
+                                        .Include(c => c.Comments) // Include Comments
+                                        .Include(c => c.Class) // Include Class
+                                        .Include(c => c.courseIMGMore) // Include ImgLinkCourse (assuming courseIMGMore is the related entity)
+                                        .Include(c => c.videoLinkCourses) // Include VideoLinkCourse
+                                        .Include(c => c.Students) // Include Students
+                                        .Include(c => c.Teachers) // Include Teachers
+                                        .ToListAsync();
         }
 
         public async Task<Course?> GetByIdAnsyc(int id)
         {
-            return await _context.Courses.Include(c=>c.Comments).FirstOrDefaultAsync(i=>i.Id==id);
+            return await _context.Courses.Include(c => c.Comments) // Include Comments
+                                        .Include(c => c.Class) // Include Class
+                                        .Include(c => c.courseIMGMore) // Include ImgLinkCourse (assuming courseIMGMore is the related entity)
+                                        .Include(c => c.videoLinkCourses) // Include VideoLinkCourse
+                                        .Include(c => c.Students) // Include Students
+                                        .Include(c => c.Teachers) // Include Teachers
+                                        .FirstOrDefaultAsync(i=>i.Id==id);
         }
 
         public async Task<Course?> UpdateAsync(int id, UpdateCourseRequestDto courseDto)
@@ -62,11 +75,19 @@ namespace api.Respository
             }
 
             existingCourse.courseName= courseDto.courseName;
+            existingCourse.courseIMG=courseDto.courseIMG;
             existingCourse.price = courseDto.price;
             existingCourse.courseDescription=courseDto.courseDescription;
             existingCourse.courseSignUp=courseDto.courseSignUp;
             existingCourse.startTime=courseDto.startTime;
             existingCourse.endTime=courseDto.endTime;
+            existingCourse.Class=courseDto.Class;
+            existingCourse.Students=courseDto.Students;
+            existingCourse.Teachers=courseDto.Teachers;
+            existingCourse.IdCourseCurr=courseDto.IdCourseCurr;
+            existingCourse.courseIMGMore=courseDto.courseIMGMore;
+            existingCourse.videoLinkCourses=courseDto.videoLinkCourses;
+            
             
             await _context.SaveChangesAsync();
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Dtos.CourseCurriculum;
+using api.Dtos.CourseCurriculums;
 using api.Models;
 using IeltsWebLearn.Models;
 

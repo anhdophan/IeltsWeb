@@ -1,0 +1,24 @@
+:root {
+    --color-primary: #ed1c25;
+    --color-secondary: #0a67e9;
+    --color-text: #444442;
+    --color-background: #fff;
+    --font-main: 'Open Sans', sans-serif;
+    --font-secondary: 'Montserrat', sans-serif;
+  }
+  
+  body {
+    font-family: var(--font-main);
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .landing-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  

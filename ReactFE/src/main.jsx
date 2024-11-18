@@ -10,9 +10,15 @@ import App from "./App"; // Nhập component App
 import CourseDetail from "./pages/CourseDetail"; // Nhập component CourseDetail
 import CourseCreate from "./pages/CourseCreate";
 import CourseRegistrationPopup from "./components/CourseRegistrationPopup";
-import AdminDashboard from "./AdminDashboard";
 import Dashboard from "./student/Dashboard";
 import AdminChat from "./components/AdminChat";
+import CourseDetails from "./coursedetails/CourseDetails"
+import IntroductionSection from "./L&TIntroduce/IntroductionSection";
+import IELTSResults from "./studentSection/IeltsResults";
+import TeacherSection from "./teacherSection/TeacherSection";
+import CourseDetailsTeacher from "./courseDetailsTeacher/CourseDetailsTeacher";
+import TeacherDashboard from "./teacherDashboard/TeacherDashboard";
+import LandingPage from "./LandingPage/LandingPage";
 
 // Tạo router với các route cần thiết
 const router = createBrowserRouter([
@@ -36,14 +42,41 @@ const router = createBrowserRouter([
     path: "/SignUp/:id", // Trang tạo khóa học
     element: <CourseRegistrationPopup />, // Hiển thị trang CourseCreate
   },
-  {
-    path: "/AdminDashboard/*", 
-    element: <AdminDashboard/>, 
-  },
+
   {
     path: "/StudentDashboard/*", 
     element: <Dashboard/>, 
   },
+  {
+    path: "/CourseDetails",
+    element: <CourseDetails/>,
+  },
+  {
+    path: "/Introduce",
+    element: <IntroductionSection/>,
+  },
+  {
+    path: "/StudentSection",
+    element: <IELTSResults/>,
+  },
+  {
+    path: "/TeacherSection",
+    element: <TeacherSection/>,
+  },
+  {
+    path: "/CourseDetailsTeacher",
+    element: <CourseDetailsTeacher/>,
+  },
+  {
+    path: "/TeacherDashboard",
+    element: <TeacherDashboard/>,
+  },
+  {
+    path: "/LandingPage",
+    element: <LandingPage/>,
+  },
+
+
 
 ]);
 

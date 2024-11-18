@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Dtos.CourseCurriculum;
+using api.Dtos.CourseCurriculums;
 using api.Models;
 using IeltsWebLearn.Models;
 
@@ -18,9 +18,9 @@ namespace api.Mappers
             };
         }
 
-        public static CourseCurriculum ToCourseCCFromCreateDTO(this CreateCCRequestDto courseCCDto){
+        public static CourseCurriculum ToCourseCCFromCreateDTO(this CreateCCRequestDto courseCCDto,int courseId){
             return new CourseCurriculum{
-                IdCourse = courseCCDto.IdCourse,
+                IdCourse = courseId,
             };
         }
     }

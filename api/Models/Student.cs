@@ -15,13 +15,13 @@ namespace api.Models
         public string phoneSt { get; set; } = string.Empty;
         public int? CourseId { get; set; }
         // Thuộc tính điều hướng dùng để truy cập sâu vào Course, ví dụ Course.Id
-        public Course? Course { get; set; }
+
         public int? ClassId { get; set; }
         // Thuộc tính điều hướng dùng để truy cập sâu vào Course, ví dụ Course.Id
-        public Class? Class { get; set; }
+
         
         public int? AccId { get; set; }
         // Thuộc tính điều hướng dùng để truy cập sâu vào Course, ví dụ Course.Id
-        public TaiKhoanHV? TaiKhoanHV { get; set; }
+
     }
 }

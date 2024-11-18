@@ -157,7 +157,7 @@ namespace api.Migrations
                     b.Property<int?>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdCourse")
+                    b.Property<int?>("IdCourse")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -175,17 +175,11 @@ namespace api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ClassId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CourseCurriculumId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<int?>("IDClass")
@@ -205,11 +199,7 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClassId");
-
                     b.HasIndex("CourseCurriculumId");
-
-                    b.HasIndex("CourseId");
 
                     b.ToTable("DayOfCourseCurricula");
                 });
@@ -346,9 +336,6 @@ namespace api.Migrations
                     b.Property<int?>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TaiKhoanHVID")
-                        .HasColumnType("int");
-
                     b.Property<string>("addressSt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -370,8 +357,6 @@ namespace api.Migrations
                     b.HasIndex("ClassId");
 
                     b.HasIndex("CourseId");
-
-                    b.HasIndex("TaiKhoanHVID");
 
                     b.ToTable("Student");
                 });
@@ -462,9 +447,6 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherId")
-                        .IsUnique();
-
                     b.ToTable("TeacherAccounts");
                 });
 
@@ -544,15 +526,13 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Class", b =>
                 {
-                    b.HasOne("IeltsWebLearn.Models.Course", "Course")
+                    b.HasOne("IeltsWebLearn.Models.Course", null)
                         .WithMany("Class")
                         .HasForeignKey("CourseId");
 
                     b.HasOne("api.Models.Teacher", null)
                         .WithMany("Classes")
                         .HasForeignKey("TeacherId");
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("api.Models.CourseCurriculum", b =>
@@ -566,23 +546,9 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.DayOfCourseCurriculum", b =>
                 {
-                    b.HasOne("api.Models.Class", "Class")
-                        .WithMany()
-                        .HasForeignKey("ClassId");
-
-                    b.HasOne("api.Models.CourseCurriculum", "CourseCurriculum")
+                    b.HasOne("api.Models.CourseCurriculum", null)
                         .WithMany("dayOfCourseCurricula")
                         .HasForeignKey("CourseCurriculumId");
-
-                    b.HasOne("IeltsWebLearn.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId");
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Course");
-
-                    b.Navigation("CourseCurriculum");
                 });
 
             modelBuilder.Entity("api.Models.ImgLinkCourse", b =>
@@ -612,34 +578,13 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Student", b =>
                 {
-                    b.HasOne("api.Models.Class", "Class")
+                    b.HasOne("api.Models.Class", null)
                         .WithMany("Students")
                         .HasForeignKey("ClassId");
 
-                    b.HasOne("IeltsWebLearn.Models.Course", "Course")
+                    b.HasOne("IeltsWebLearn.Models.Course", null)
                         .WithMany("Students")
                         .HasForeignKey("CourseId");
-
-                    b.HasOne("api.Models.TaiKhoanHV", "TaiKhoanHV")
-                        .WithMany()
-                        .HasForeignKey("TaiKhoanHVID");
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Course");
-
-                    b.Navigation("TaiKhoanHV");
-                });
-
-            modelBuilder.Entity("api.Models.TeacherAccount", b =>
-                {
-                    b.HasOne("api.Models.Teacher", "teacher")
-                        .WithOne("AccountGV")
-                        .HasForeignKey("api.Models.TeacherAccount", "TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("teacher");
                 });
 
             modelBuilder.Entity("api.Models.VideoLinkCourse", b =>
@@ -688,9 +633,6 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Teacher", b =>
                 {
-                    b.Navigation("AccountGV")
-                        .IsRequired();
-
                     b.Navigation("Classes");
                 });
 #pragma warning restore 612, 618

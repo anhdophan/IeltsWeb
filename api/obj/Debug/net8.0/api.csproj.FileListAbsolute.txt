@@ -293,3 +293,5 @@ E:\ieltsWeb\IeltsWeb\api\obj\Debug\net8.0\refint\api.dll
 E:\ieltsWeb\IeltsWeb\api\obj\Debug\net8.0\api.pdb
 E:\ieltsWeb\IeltsWeb\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 E:\ieltsWeb\IeltsWeb\api\obj\Debug\net8.0\ref\api.dll
+E:\ieltsWeb\IeltsWeb\api\bin\Debug\net8.0\package-lock.json
+E:\ieltsWeb\IeltsWeb\api\bin\Debug\net8.0\package.json

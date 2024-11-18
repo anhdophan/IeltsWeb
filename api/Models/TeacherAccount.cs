@@ -22,6 +22,5 @@ namespace api.Models
         
         
         public int TeacherId { get; set; }
-        public Teacher teacher {get;set;}
     }
 }

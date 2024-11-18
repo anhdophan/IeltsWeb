@@ -22,6 +22,5 @@ namespace api.Models
 
         // Navigation properties
         public int IdCourse { get; set; }
-        public Course? Course { get; set; }
     }
 }

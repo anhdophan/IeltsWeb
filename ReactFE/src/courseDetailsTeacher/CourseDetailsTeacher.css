@@ -1,0 +1,502 @@
+/* Global Styles */
+:root {
+    --primary-color: #ed1c25;
+    --secondary-color: #05224a;
+    --white: #fff;
+    --black: #000;
+    --gray: #f5f5f5;
+  }
+  
+  body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: var(--black);
+  }
+  
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  /* Layout */
+  .course-details {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .course-main {
+    display: flex;
+    flex-grow: 1;
+  }
+  
+  /* Header Styles */
+  .main-header {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    padding: 1rem;
+    background-color: white;
+    border-bottom: 1px solid rgba(191, 9, 1, 0.4);
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    display: flex;
+    font-family: 'Atomic Age';
+    align-items: center;
+    margin: 80px;
+    border-color: 1px solid #ed1c25;
+  }
+  
+  .logo-letter {
+    font-family: 'Atomic Age';
+    font-size: 2.5rem;
+    color: #ed1c25;
+  }
+  
+  .logo-text {
+    font-size: 1.25rem;
+    margin-left: 5px;
+    color: #ed1c25;
+  }
+  
+  .main-nav .nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .main-nav .nav-list li {
+    margin-right: 1rem;
+  }
+  
+  .main-nav .nav-list a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin: 80px;
+  }
+  
+  .user-name {
+    margin-right: 1rem;
+    font-weight: bold;
+  }
+  
+  .user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: var(--gray);
+    border: 1px solid #ed1c25;
+  }
+  
+  /* Sidebar Styles */
+.sidebar {
+  position:absolute; /* Make the sidebar fixed */
+  top: 0;
+  left: 0;
+  width: 100%; /* Adjust width as per your layout needs */
+  height: 110px;
+  min-height: 100px;
+  border-bottom: 2px solid rgba(239, 24, 13, 0.949);
+  border-top: 2px solid rgba(238, 25, 14, 0.918);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* Ensure it's above other content if needed */
+  margin-top: 100px; /* Remove top margin */
+  overflow: hidden; /* Hide scrollbar */
+}
+
+.sidebar-nav {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 80px;
+    
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap; /* Ngăn không cho các mục xuống dòng */
+    flex-shrink: 0;
+    margin-right: 80px;
+    
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    white-space: nowrap;
+}
+
+.sidebar-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 5px;
+    flex-shrink: 0;
+}
+
+.sidebar-label {
+    font-size: 1.55rem;
+    font-family: 'Poppins';
+    white-space: nowrap;
+    font-size: 20px;
+}
+
+.sidebar-footer {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 50px;
+    flex-shrink: 0;
+}
+
+/* Khung vuông bên ngoài */
+.icon-box {
+    width: 100px;  /* Kích thước khung vuông */
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(191, 9, 1, 0.4);
+    background-color: white;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+/* Icon bên trong */
+.sidebar-footer-icon {
+    width: 32px;  /* Kích thước của icon */
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  /* Course Content Styles */
+  .course-content {
+    flex-grow: 1;
+    padding: 15rem;
+  }
+  
+  .course-header {
+    margin-bottom: 0rem;
+    margin-left: -110px;
+  }
+  
+  .course-title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    margin-left: -150px;
+    font-weight: normal;
+    padding: -100px;
+    height: 5px;
+  }
+  
+  .action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    size: -190px;
+    margin-left: -190px;
+    padding: 35px;
+    
+  }
+  .action-button1 {
+    background: none;
+    border: none;
+    cursor: pointer;
+    size: -190px;
+    margin-left: -170px;
+    
+  }
+  
+  
+  .course-video {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  
+  .course-video-row {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 1rem; /* Khoảng cách giữa video và ảnh */
+  }
+  
+  .video-placeholder {
+    background-color: rgb(233, 7, 7);
+    width: 650px;
+    height: 350px;
+  }
+
+  .extra-image {
+    position: absolute;
+    top: 0;
+    right: -330px;
+    width: 300px;
+    height: 400px;
+    border: 1px solid #f70c0c; /* Thêm khung viền màu đen */
+    border-radius: 1px; /* Tùy chọn bo góc cho khung */
+    padding: 30px; /* Khoảng cách giữa ảnh và khung */
+    background-color: #fff; /* Màu nền cho khung */
+  }
+  
+  .announcement {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    margin-left: -170px;
+    padding: -10px;
+  }
+  
+  .announcement-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Course Unit Styles */
+  .course-unit {
+    margin-bottom: 1rem; /* Reduce to 1rem or even 0 to minimize space */
+    margin-left: -300px;
+    margin-top: 2rem;
+}
+
+.unit-title {
+    background-color: #ff0000;
+    color: black;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 0; /* Canh giữa đơn vị nội dung */
+}
+
+.unit-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.lesson-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.lesson-item {
+    display: flex;
+    align-items: center;
+    ;
+}
+
+.lesson-icon {
+  width: 1rem; /* Kích thước chiều rộng icon */
+  height: 1rem; /* Kích thước chiều cao icon */
+  margin-right: 0.5rem; /* Khoảng cách giữa icon và text */
+}
+
+
+.lesson-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mark-done-button {
+    background-color: white;
+    border: 1px solid #ff0000;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    color: #000;
+    transition: background-color 0.3s ease;
+    border-radius: 5px; /* Bo tròn nút bấm */
+    font-size: 0.9rem;
+}
+
+.mark-done-button:hover {
+    background-color: #ff0000; /* Màu nền khi rê chuột */
+    color: white;
+}
+
+  
+  /* Footer Styles */
+  .main-footer {
+     /* Ensure there's no extra space at the top of the footer */
+    padding-top: 3rem; /* Adjust padding if needed to maintain space within the footer */
+    padding-bottom: 0rem;
+    margin-bottom: -30px;
+}
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 600px;
+    max-width: 1200px;
+    
+  }
+  
+  .footer-logo {
+    display: flex;
+    font-family: 'Atomic Age';
+    align-items: center;
+    margin: 80px;
+    height: 200px;
+    margin-left: 5px;
+    border-color: 1px solid #ed1c25;
+    margin-top: -30px;
+  }
+  
+  .logoo {
+    font-family: 'Atomic Age';
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-top: -190px;
+    
+  }
+  
+  .logo-text1 {
+    font-size: 1.5rem;
+    margin-left: 5px;
+    color: #ffffff;
+    margin-top: -190px;
+  }
+  
+  
+  .footer-description {
+    max-width: 400px;
+    margin-bottom: 5rem;
+    margin-top: -95px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: white;
+    font-size: small;
+  }
+  
+  .footer-achievements {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    text-align: left;
+    font-size: 1rem;
+    margin-top: -60px;
+    font-size: small;
+  }
+  
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-left: 475px;
+    margin-top: -290px;
+    font-size: small;
+  }
+  
+  .footer-nav-column h3 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  .footer-nav-column ul {
+    list-style: none;
+    padding: 0;
+    
+  }
+  
+  .footer-nav-column a {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    display: block;
+    transition: color 0.3s;
+    
+  }
+  
+  .footer-nav-column a:hover {
+    color: #ffcb04;
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .social-icons a {
+    color: white;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+  }
+  
+  .social-icons a:hover {
+    color: #ffcb04;
+  }
+  
+  .footer-locations {
+    margin-top: 2rem;
+    margin-left: -890px;
+  }
+  
+  .location-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    margin-left: 850px;
+  }
+  
+  .location-item {
+    background: linear-gradient(180deg, #fdfbfb 0%, #eaedee 100%);
+    color: #ed1c25;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .location-item:hover {
+    background-color: #e2e2e2;
+  }
+  
+  
+  @media (max-width: 991px) {
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .footer-nav {
+      flex-direction: column;
+    }
+  }
+  

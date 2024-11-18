@@ -19,6 +19,11 @@ namespace api.Dtos.Courses
         public int courseSignUp { get; set; }
          public DateTime startTime {get;set;}
         public DateTime endTime {get;set;}
+        public List<Class> Class  { get; set; }  = new List<Class>();
+        public List<Student> Students { get; set; } = new List<Student>();
+        public List<Teacher> Teachers { get; set; } = new List<Teacher>();
+        public int? IdCourseCurr;
+
         public List<ImgLinkCourse> courseIMGMore { get; set; }  = new List<ImgLinkCourse>();
         public List<VideoLinkCourse> videoLinkCourses { get; set; } = new List<VideoLinkCourse>();
     }

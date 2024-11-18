@@ -1,0 +1,36 @@
+.inputWrapper {
+    flex: 1 1 calc(50% - 10px); /* Make the input boxes 50% width with spacing */
+    min-width: 250px; /* Minimum width for smaller screens */
+    max-width: 100%; /* Full width within the form */
+}
+
+.inputWrapper {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.input {
+  width: 100%;
+  padding: 18px 13px;
+  border: 1px solid #0a67e9;
+  border-radius: 3px;
+  background-color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #848484;
+}
+
+.input::placeholder {
+  color: #848484;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(10, 103, 233, 0.5);
+}
+
+@media (max-width: 991px) {
+    .inputWrapper {
+        flex: 1 1 100%; /* Make input fields full-width on smaller screens */
+    }
+}

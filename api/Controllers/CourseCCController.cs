@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using IeltsWebLearn.Data;
 using api.Interfaces;
 using api.Mappers;
-using api.Dtos.CourseCurriculum;
+using api.Dtos.CourseCurriculums;
 
 namespace api.Controllers
 {
@@ -16,12 +16,14 @@ namespace api.Controllers
     {
          //readonly để chống người dùng chỉnh sửa db
         private readonly ApplicationDBContext _context;
+        private readonly ICourseReponsitory _courseRepo;
         private readonly ICourseCCReponsitory _courseCCRepon;
         //ApplicationDBContext để tương tác với db
-        public CourseCCController(ApplicationDBContext context, ICourseCCReponsitory courseCCRepon)
+        public CourseCCController(ApplicationDBContext context, ICourseCCReponsitory courseCCRepon,ICourseReponsitory courseRepo)
         {
             _courseCCRepon= courseCCRepon;
             _context = context;
+            _courseRepo = courseRepo;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll(){
@@ -43,11 +45,13 @@ namespace api.Controllers
 
             return Ok(courseCC.ToCCDto());
         }
-        //dùng FromBody bởi vì dữ liệu được truyền vào từ phần body của http 
-        //gửi request tới Dto để hạn chế lượng thông tin mà người dùng gửi tới
-       [HttpPost]
-       public async Task<IActionResult> Create([FromBody] CreateCCRequestDto courseCCDto){
-            var courseCCModel = courseCCDto.ToCourseCCFromCreateDTO();
+     
+       [HttpPost("{courseId}")]
+       public async Task<IActionResult> Create([FromRoute] int courseId,CreateCCRequestDto courseCCDto){
+            if(!await _courseRepo.CourseExists(courseId)){
+                return BadRequest("Course Không Tồn Tại");
+            }
+            var courseCCModel = courseCCDto.ToCourseCCFromCreateDTO(courseId);
             await _courseCCRepon.CreateAsync(courseCCModel);
             return CreatedAtAction(nameof(GetById),new {id=courseCCModel.Id},courseCCModel.ToCCDto());
        }

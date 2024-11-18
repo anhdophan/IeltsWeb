@@ -17,11 +17,10 @@ namespace api.Models
        
 
         // Navigation properties
-         public int? IDClass { get; set; }
-        public Class? Class { get; set; }
+        public int? IDClass { get; set; }
+
         public int? IDCourse { get; set; }
-        public Course? Course { get; set; }
+
         public int? IDCourseCC { get; set; }
-        public CourseCurriculum? CourseCurriculum { get; set; }
     }
 }

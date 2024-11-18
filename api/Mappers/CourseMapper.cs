@@ -29,9 +29,7 @@ namespace api.Mappers
                 courseName = courseDto.courseName,
                 price = courseDto.price,
                 courseIMG = courseDto.courseIMG,
-                courseDescription = courseDto.courseDescription,
-                courseSignUp = courseDto.courseSignUp,
-                startTime = courseDto.startTime,
+                courseDescription = courseDto.courseDescription,                startTime = courseDto.startTime,
                 endTime = courseDto.endTime,
             };
         }

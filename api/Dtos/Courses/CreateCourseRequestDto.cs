@@ -15,9 +15,7 @@ namespace api.Dtos.Courses
         [Column(TypeName ="decimal(18,1)")]
         public decimal price { get; set; }
 
-        public string courseDescription { get; set; } = string.Empty;
-        public int courseSignUp { get; set; }
-         public DateTime startTime {get;set;}
+        public string courseDescription { get; set; } = string.Empty;         public DateTime startTime {get;set;}
         public DateTime endTime {get;set;}
         public List<ImgLinkCourse> courseIMGMore { get; set; }  = new List<ImgLinkCourse>();
         public List<VideoLinkCourse> videoLinkCourses { get; set; } = new List<VideoLinkCourse>();

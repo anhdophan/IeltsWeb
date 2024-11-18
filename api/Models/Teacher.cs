@@ -21,6 +21,5 @@ namespace api.Models
         public List<Course> Courses { get; set; } = new List<Course>();
 
         public int? IdAccountGV { get; set; }
-        public TeacherAccount AccountGV { get; set; }
     }
 }
